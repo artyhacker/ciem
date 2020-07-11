@@ -19,7 +19,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "dry-release": "standard-version --dry-run"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -35,5 +36,21 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^9.0.1",
+    "@commitlint/config-conventional": "^9.0.1",
+    "@semantic-release/changelog": "^5.0.1",
+    "@semantic-release/git": "^9.0.0",
+    "@semantic-release/gitlab": "^6.0.4",
+    "git-cz": "^4.7.0",
+    "husky": "^4.2.5",
+    "semantic-release": "^17.1.1",
+    "standard-version": "^8.0.0"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -x @commitlint/config-conventional -E HUSKY_GIT_PARAMS"
+    }
   }
 }
