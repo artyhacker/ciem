@@ -1,0 +1,32 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  width: 100vw;
+  height: 4rem;
+  border-bottom: 1px solid #b2b2b2;
+}
+
+.body {
+  width: 100vw;
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+}
+
+.menu {
+  height: 100%;
+  width: 12rem;
+  border-right: 1px solid #b2b2b2;
+}
+
+.content {
+  height: 100%;
+  flex: 1;
+  padding: 1rem;
+  overflow: auto;
+}
