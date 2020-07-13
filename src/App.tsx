@@ -1,5 +1,7 @@
 import React from 'react';
 import styles from './App.module.css';
+import Menu from './components/Menu';
+import Routes from './components/Routes';
 
 function App() {
   return (
@@ -9,10 +11,10 @@ function App() {
       </div>
       <div className={styles.body}>
         <div className={styles.menu}>
-          menu
+          <Menu />
         </div>
         <div className={styles.content}>
-          content
+          <Routes />
         </div>
       </div>
     </div>
