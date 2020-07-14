@@ -1,4 +1,5 @@
 import Empty from '../components/Empty';
+import Dict from '../components/Dict';
 
 export type MenuItemType = {
   path: string;
@@ -9,43 +10,43 @@ export type MenuItemType = {
 
 const menuConfig: MenuItemType[] = [
   {
-    path: 'dict',
+    path: '/dict',
     label: '字典导入',
-    component: Empty,
+    component: Dict,
     auth: 1,
   },
   {
-    path: 'register',
+    path: '/register',
     label: '数据注册',
     component: Empty,
     auth: 0,
   },
   {
-    path: 'my-data',
+    path: '/my-data',
     label: '我的数据',
     component: Empty,
     auth: 0,
   },
   {
-    path: 'apply',
+    path: '/apply',
     label: '数据申请',
     component: Empty,
     auth: 0,
   },
   {
-    path: 'my-apply',
+    path: '/my-apply',
     label: '我的申请',
     component: Empty,
     auth: 0,
   },
   {
-    path: 'approve',
+    path: '/approve',
     label: '我的审批',
     component: Empty,
     auth: 1,
   },
   {
-    path: 'assess',
+    path: '/assess',
     label: '效能评估',
     component: Empty,
     auth: 1,
