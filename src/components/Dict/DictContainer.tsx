@@ -9,7 +9,9 @@ const DictContainer: FC = () => {
     <div className={styles.container}>
       <DictUploader />
       <Divider />
-      <DictTable />
+      <div style={{ width: '100%', height: '100%' }}>
+        <DictTable />
+      </div>
     </div>
   );
 };
