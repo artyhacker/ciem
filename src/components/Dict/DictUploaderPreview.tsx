@@ -1,6 +1,6 @@
-import React, { FC } from "react";
+import React, { FC, useState, useEffect } from "react";
 import { Modal, Table } from "antd";
-import { DictType, DictColumns, getDictMockData } from "../../models/dict";
+import { DictType, DictColumns } from "../../models/dict";
 
 interface Props {
   visible: boolean;
@@ -10,6 +10,12 @@ interface Props {
 }
 
 const DictUploaderPreview: FC<Props> = ({ visible, data, onOk, onCancel }) => {
+  const [prevData, setPrevData] = useState(data);
+
+  useEffect(() => {
+    setPrevData(data);
+  }, [data]);
+
   return (
     <Modal
       visible={visible}
@@ -22,7 +28,7 @@ const DictUploaderPreview: FC<Props> = ({ visible, data, onOk, onCancel }) => {
       <Table
         rowKey="id"
         columns={DictColumns}
-        dataSource={getDictMockData()}
+        dataSource={prevData}
         bordered
         size="small"
         pagination={false}

@@ -2,7 +2,11 @@ import React, { FC } from "react";
 import { Table } from "antd";
 import { DictColumns } from "../../models/dict";
 
-const DictTable: FC = () => {
+interface Props {
+  isLoading: boolean;
+}
+
+const DictTable: FC<Props> = ({ isLoading }) => {
   return (
     <Table
       rowKey="id"
@@ -10,6 +14,7 @@ const DictTable: FC = () => {
       dataSource={[]}
       bordered
       pagination={false}
+      loading={isLoading}
     />
   );
 };
