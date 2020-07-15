@@ -16,6 +16,7 @@ const DictTable: FC<Props> = ({ isLoading, data }) => {
       bordered
       pagination={false}
       loading={isLoading}
+      size="small"
     />
   );
 };
