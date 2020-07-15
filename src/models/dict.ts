@@ -5,6 +5,12 @@ export type DictType = {
 
 export const DictColumns = [
   {
+    dataIndex: 'INDEX',
+    title: '序号',
+    render: (t: string, r: DictType, i: number) => (i + 1),
+    width: 80,
+  },
+  {
     dataIndex: "id",
     title: "CIEM数据元字典标识符",
   },

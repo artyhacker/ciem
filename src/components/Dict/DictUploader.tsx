@@ -8,6 +8,7 @@ import DictUploaderPreview from "./DictUploaderPreview";
 
 interface Props {
   setLoading: (isLoading: boolean) => void;
+  fetchUpload: (data: DictType[]) => void;
 }
 
 const fileNameStyle = {
@@ -31,12 +32,13 @@ const parseXData = (data: { [key: string]: { v: string } }): DictType[] => {
 
 const EXCEL_TYPE_LIST = ["xls", "xlsx", "csv"];
 
-const DictUploader: FC<Props> = ({ setLoading }) => {
+const DictUploader: FC<Props> = ({ setLoading, fetchUpload }) => {
   const [preVisible, setPreVisible] = useState(false);
   const [data, setData] = useState<DictType[]>([]);
 
-  const onOk = () => {
-    console.log("SAVE: ", data);
+  const onOk = (importData: DictType[]) => {
+    fetchUpload(importData);
+    setPreVisible(false);
     setData([]);
   };
 
@@ -46,7 +48,6 @@ const DictUploader: FC<Props> = ({ setLoading }) => {
   };
 
   const beforeUpload = (file: RcFile) => {
-    console.log(file);
     const fileType = file.name.slice(file.name.lastIndexOf(".") + 1);
     if (EXCEL_TYPE_LIST.includes(fileType)) {
       setLoading(true);

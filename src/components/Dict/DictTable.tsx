@@ -1,17 +1,18 @@
 import React, { FC } from "react";
 import { Table } from "antd";
-import { DictColumns } from "../../models/dict";
+import { DictColumns, DictType } from "../../models/dict";
 
 interface Props {
   isLoading: boolean;
+  data: DictType[];
 }
 
-const DictTable: FC<Props> = ({ isLoading }) => {
+const DictTable: FC<Props> = ({ isLoading, data }) => {
   return (
     <Table
       rowKey="id"
       columns={DictColumns}
-      dataSource={[]}
+      dataSource={data}
       bordered
       pagination={false}
       loading={isLoading}
