@@ -26,7 +26,6 @@ const parseXData = (data: { [key: string]: { v: string } }): DictType[] => {
     result.push({ name: data[`A${index}`].v, id: data[`B${index}`].v });
     index += 1;
   }
-  console.log(result);
   return result;
 };
 
