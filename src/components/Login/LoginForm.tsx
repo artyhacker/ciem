@@ -83,10 +83,10 @@ const LoginForm: FC<Props> = ({ visible, onClose, history }) => {
           }} />
         </FormItem>
         <FormItem label="密码" name="password" rules={[rules.required]}>
-          <Input placeholder="请输入密码" />
+          <Input placeholder="请输入密码" type="password" />
         </FormItem>
         <FormItem label="确认密码" name="password1" rules={[rules.required]}>
-          <Input placeholder="请再次输入密码" />
+          <Input placeholder="请再次输入密码" type="password" />
         </FormItem>
         <FormItem label="AREA" name="area" style={{ display: 'none' }}>
           <Input />

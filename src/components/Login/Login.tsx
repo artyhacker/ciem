@@ -44,6 +44,7 @@ const Login: FC<RouteComponentProps> = ({ history }) => {
         />
         <Input
           placeholder="请输入密码"
+          type="password"
           style={{ margin: "1.5rem 0" }}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
