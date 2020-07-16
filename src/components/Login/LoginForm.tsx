@@ -34,7 +34,6 @@ const LoginForm: FC<Props> = ({ visible, onClose, history }) => {
           return;
         }
         let { areaData, ...data } = values;
-        console.log(data);
         axiosInstance
           .post(api.user, data)
           .then(res => {
