@@ -17,6 +17,7 @@ export { BASE_URL };
 
 const api = {
   login: '/login',
+  user: '/user',
   dict: '/dicts',
 };
 
