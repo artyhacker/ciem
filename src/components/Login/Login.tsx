@@ -6,6 +6,7 @@ import api from "../../configs/api";
 import { RouteComponentProps } from "react-router-dom";
 import LoginForm from "./LoginForm";
 import { setToken } from "../../utils/tokenUtils";
+import { SYSTEM_TITLE } from "../../models/global";
 
 const Login: FC<RouteComponentProps> = ({ history }) => {
   const [username, setUsername] = useState<string>();
@@ -28,29 +29,35 @@ const Login: FC<RouteComponentProps> = ({ history }) => {
 
   return (
     <div className={styles.container}>
+      <div className={styles.title}>
+        <span style={{ padding: '0 1rem' }}>LOGO</span>
+        {SYSTEM_TITLE}
+      </div>
       <div className={styles.form}>
+        <div className={styles['form-title']}>用户登录</div>
         <Input
           placeholder="请输入用户名"
           autoFocus
           value={username}
+          style={{ marginTop: '1rem' }}
           onChange={(e) => setUsername(e.target.value)}
         />
         <Input
           placeholder="请输入密码"
-          style={{ margin: "1rem 0" }}
+          style={{ margin: "1.5rem 0" }}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
         <Button
           type="primary"
-          style={{ margin: "0 auto", display: "block", width: "8rem" }}
+          style={{ margin: "0 auto", display: "block", width: "10rem" }}
           onClick={onLogin}
         >
           登录
         </Button>
         <Button
           type="link"
-          style={{ margin: "0 auto", display: "block" }}
+          style={{ margin: "0 auto", display: "block", color: '#FFF' }}
           onClick={() => setVisible(true)}
         >{`注册新账号>>`}</Button>
       </div>
