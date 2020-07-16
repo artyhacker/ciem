@@ -16,6 +16,7 @@ if (process.env.NODE_ENV === 'development') {
 export { BASE_URL };
 
 const api = {
+  login: '/login',
   dict: '/dicts',
 };
 

@@ -1,0 +1,12 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.form {
+  width: 20rem;
+  height: 12rem;
+  margin: 0 auto;
+  margin-top: 10%;
+}
