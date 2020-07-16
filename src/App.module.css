@@ -8,9 +8,11 @@
 
 .header {
   width: 100vw;
-  height: 2rem;
-  line-height: 2rem;
-  border-bottom: 1px solid #b2b2b2;
+  height: 51px;
+  line-height: 51px;
+  background-color: #051327;
+  color: white;
+  font-size: 22px;
 }
 
 .body {
@@ -23,14 +25,14 @@
 
 .menu {
   height: 100%;
-  width: 12rem;
-  border-right: 1px solid #b2b2b2;
+  width: 200px;
+  border-right: 1px solid rgba(0,0,0,0.1);
 }
 
 .content {
   height: 100%;
   flex: 1;
-  padding: 1.5rem;
+  padding: 40px;
   overflow: auto;
   background: rgb(237,241,242);
 }
