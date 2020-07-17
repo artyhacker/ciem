@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import moment from 'moment';
 import styles from './Header.module.css';
 import { SYSTEM_TITLE } from '../../models/global';
@@ -13,6 +13,15 @@ interface Props {
 }
 
 const Header: FC<Props> = ({ history }) => {
+  const [time, setTime] = useState(moment().format('YYYY.MM.DD HH:mm'));
+
+  useEffect(() => {
+    const i = setInterval(() => {
+      setTime(moment().format('YYYY.MM.DD HH:mm'));
+    }, 2000);
+    return () => clearInterval(i);
+  }, []);
+
   const fetchLogout = async () => {
     const res = await axiosInstance.get(api.logout);
     if (isOk(res)) {
@@ -30,7 +39,7 @@ const Header: FC<Props> = ({ history }) => {
       <div className={styles.title}>{SYSTEM_TITLE}</div>
       <div className={styles.time}>
         <div className={styles['logo-time']}/>
-        <span style={{ fontSize: '16px', margin: '0 1rem', flex: '1' }}>{moment().format('YYYY.MM.DD HH:mm')}</span>
+        <span style={{ fontSize: '16px', margin: '0 1rem', flex: '1' }}>{time}</span>
         <Popconfirm title="确认退出？" onConfirm={fetchLogout} placement="leftBottom">
           <div className={styles['logo-logout']} title="退出登录"/>
         </Popconfirm>
