@@ -1,14 +1,15 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styles from './App.module.css';
 import Menu from './components/Menu';
 import Routes from './components/Routes';
 import Header from './components/Header/Header';
+import { RouteComponentProps } from 'react-router-dom';
 
-function App() {
+const App: FC<RouteComponentProps> = ({ history }) => {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <Header />
+        <Header history={history} />
       </div>
       <div className={styles.body}>
         <div className={styles.menu}>

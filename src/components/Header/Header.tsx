@@ -4,11 +4,25 @@ import moment from 'moment';
 import styles from './Header.module.css';
 import { SYSTEM_TITLE } from '../../models/global';
 import { Popconfirm, message } from 'antd';
+import axiosInstance, { isOk } from '../../utils/axios';
+import api from '../../configs/api';
+import { clearToken } from '../../utils/tokenUtils';
+import { History } from 'history';
 
-const Header: FC = () => {
-  const onLogout = () => {
-    // TODO: 退出登录
-    message.success('您已安全退出！');
+interface Props {
+  history: History;
+}
+
+const Header: FC<Props> = ({ history }) => {
+  const onLogout = async () => {
+    const res = await axiosInstance.get(api.logout);
+    if (isOk(res)) {
+      history.push('/login');
+      message.success('您已安全退出！');
+      clearToken();
+    } else {
+      message.error('操作失败');
+    }
   };
 
   return (
