@@ -7,11 +7,25 @@
   background: url("../../assets/login-bg.png") no-repeat center/cover;
 }
 
-.title {
+.header {
   flex: 1;
-  font-size: 3rem;
-  height: 7rem;
-  line-height: 7rem;
+  height: 120px;
+  line-height: 120px;
+  vertical-align: middle;
+  display: flex;
+  flex-direction: row;
+}
+
+.logo {
+  background: url("../../assets/logo-bg.png") no-repeat center/cover;
+  width: 69px;
+  height: 53px;
+  margin: 0 2rem;
+  margin-top: 35px;
+}
+
+.title {
+  font-size: 55px;
   color: white;
   font-weight: bold;
 }

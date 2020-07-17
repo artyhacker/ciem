@@ -7,6 +7,7 @@ import { RouteComponentProps } from "react-router-dom";
 import LoginForm from "./LoginForm";
 import { setToken } from "../../utils/tokenUtils";
 import { SYSTEM_TITLE } from "../../models/global";
+import logo from '../../assets/logo-bg.png';
 
 const Login: FC<RouteComponentProps> = ({ history }) => {
   const [username, setUsername] = useState<string>();
@@ -29,9 +30,9 @@ const Login: FC<RouteComponentProps> = ({ history }) => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.title}>
-        <span style={{ padding: '0 1rem' }}>LOGO</span>
-        {SYSTEM_TITLE}
+      <div className={styles.header}>
+        <div className={styles.logo} />
+        <div className={styles.title}>{SYSTEM_TITLE}</div>
       </div>
       <div className={styles.form}>
         <div className={styles['form-title']}>用户登录</div>
@@ -41,12 +42,14 @@ const Login: FC<RouteComponentProps> = ({ history }) => {
           value={username}
           style={{ marginTop: '1rem' }}
           onChange={(e) => setUsername(e.target.value)}
+          onPressEnter={onLogin}
         />
         <Input
           placeholder="请输入密码"
           type="password"
           style={{ margin: "1.5rem 0" }}
           value={password}
+          onPressEnter={onLogin}
           onChange={(e) => setPassword(e.target.value)}
         />
         <Button
