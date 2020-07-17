@@ -7,7 +7,6 @@ import { RouteComponentProps } from "react-router-dom";
 import LoginForm from "./LoginForm";
 import { setToken } from "../../utils/tokenUtils";
 import { SYSTEM_TITLE } from "../../models/global";
-import logo from '../../assets/logo-bg.png';
 
 const Login: FC<RouteComponentProps> = ({ history }) => {
   const [username, setUsername] = useState<string>();

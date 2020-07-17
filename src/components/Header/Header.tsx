@@ -27,7 +27,7 @@ const Header: FC<Props> = ({ history }) => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.icon}>icon</div>
+      <div className={styles.icon}/>
       <div className={styles.title}>{SYSTEM_TITLE}</div>
       <div className={styles.time}>
         <ClockCircleOutlined />

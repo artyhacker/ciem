@@ -6,9 +6,11 @@
 }
 
 .icon {
-  width: 100px;
-  height: 100%;
-  text-align: center;
+  width: 35px;
+  height: 27px;
+  background: url("../../assets/logo-bg.png") no-repeat center/cover;
+  margin: 0 1.5rem;
+  margin-top: 12px;
 }
 
 .title {
