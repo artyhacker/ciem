@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-import { ClockCircleOutlined, LogoutOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import styles from './Header.module.css';
 import { SYSTEM_TITLE } from '../../models/global';
@@ -14,7 +13,7 @@ interface Props {
 }
 
 const Header: FC<Props> = ({ history }) => {
-  const onLogout = async () => {
+  const fetchLogout = async () => {
     const res = await axiosInstance.get(api.logout);
     if (isOk(res)) {
       history.push('/login');
@@ -30,10 +29,10 @@ const Header: FC<Props> = ({ history }) => {
       <div className={styles.icon}/>
       <div className={styles.title}>{SYSTEM_TITLE}</div>
       <div className={styles.time}>
-        <ClockCircleOutlined />
-        <span style={{ fontSize: '16px', margin: '0 1rem' }}>{moment().format('YYYY.MM.DD HH:mm')}</span>
-        <Popconfirm title="退出登录？" onConfirm={onLogout}>
-          <LogoutOutlined />
+        <div className={styles['logo-time']}/>
+        <span style={{ fontSize: '16px', margin: '0 1rem', flex: '1' }}>{moment().format('YYYY.MM.DD HH:mm')}</span>
+        <Popconfirm title="确认退出？" onConfirm={fetchLogout} placement="leftBottom">
+          <div className={styles['logo-logout']} title="退出登录"/>
         </Popconfirm>
       </div>
     </div>
