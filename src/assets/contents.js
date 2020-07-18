@@ -1,197 +1,198 @@
 const contents = [
   {
-    id: "上海市",
-    name: "上海市",
+    key: "上海市",
+    title: "上海市",
     children: [
       {
-        id: "长宁区",
-        name: "长宁区",
+        key: "长宁区",
+        title: "长宁区",
         children: [
           {
-            id: "华阳路街道",
-            name: "华阳路街道",
+            key: "华阳路街道",
+            title: "华阳路街道",
             children: [
               {
-                id: "华阳路街道文化服务中心",
-                name: "华阳路街道文化服务中心",
+                key: "华阳路街道文化服务中心",
+                title: "华阳路街道文化服务中心",
                 children: [],
               },
-              { id: "“海之韵”合唱团", name: "“海之韵”合唱团", children: [] },
+              { key: "“海之韵”合唱团", title: "“海之韵”合唱团", children: [] },
             ],
           },
           {
-            id: "新华路街道",
-            name: "新华路街道",
+            key: "新华路街道",
+            title: "新华路街道",
             children: [
               {
-                id: "新华路街道民俗文化中心",
-                name: "新华路街道民俗文化中心",
+                key: "新华路街道民俗文化中心",
+                title: "新华路街道民俗文化中心",
                 children: [],
               },
               {
-                id: "云荷苑荷塘月色戏剧队",
-                name: "云荷苑荷塘月色戏剧队",
-                children: [],
-              },
-            ],
-          },
-          {
-            id: "江苏路街道",
-            name: "江苏路街道",
-            children: [
-              {
-                id: "江苏路街道文化服务中心",
-                name: "江苏路街道文化服务中心",
-                children: [],
-              },
-              { id: "上钢合唱团", name: "上钢合唱团", children: [] },
-            ],
-          },
-          {
-            id: "天山路街道",
-            name: "天山路街道",
-            children: [
-              {
-                id: "天山路街道民俗文化中心",
-                name: "天山路街道民俗文化中心",
-                children: [],
-              },
-              {
-                id: "天山路街道说唱表演队",
-                name: "天山路街道说唱表演队",
+                key: "云荷苑荷塘月色戏剧队",
+                title: "云荷苑荷塘月色戏剧队",
                 children: [],
               },
             ],
           },
           {
-            id: "周家桥街道",
-            name: "周家桥街道",
+            key: "江苏路街道",
+            title: "江苏路街道",
             children: [
               {
-                id: "周家桥街道文化服务中心",
-                name: "周家桥街道文化服务中心",
+                key: "江苏路街道文化服务中心",
+                title: "江苏路街道文化服务中心",
+                children: [],
+              },
+              { key: "上钢合唱团", title: "上钢合唱团", children: [] },
+            ],
+          },
+          {
+            key: "天山路街道",
+            title: "天山路街道",
+            children: [
+              {
+                key: "天山路街道民俗文化中心",
+                title: "天山路街道民俗文化中心",
+                children: [],
+              },
+              {
+                key: "天山路街道说唱表演队",
+                title: "天山路街道说唱表演队",
                 children: [],
               },
             ],
           },
           {
-            id: "虹桥街道",
-            name: "虹桥街道",
+            key: "周家桥街道",
+            title: "周家桥街道",
             children: [
               {
-                id: "虹桥街道民俗文化中心",
-                name: "虹桥街道民俗文化中心",
-                children: [],
-              },
-              { id: "虹桥街道图书馆", name: "虹桥街道图书馆", children: [] },
-            ],
-          },
-          {
-            id: "仙霞新村街道",
-            name: "仙霞新村街道",
-            children: [
-              {
-                id: "仙霞新村街道文化服务中心",
-                name: "仙霞新村街道文化服务中心",
+                key: "周家桥街道文化服务中心",
+                title: "周家桥街道文化服务中心",
                 children: [],
               },
             ],
           },
           {
-            id: "程家桥街道",
-            name: "程家桥街道",
+            key: "虹桥街道",
+            title: "虹桥街道",
             children: [
               {
-                id: "程家桥社区文化活动中心",
-                name: "程家桥社区文化活动中心",
+                key: "虹桥街道民俗文化中心",
+                title: "虹桥街道民俗文化中心",
+                children: [],
+              },
+              { key: "虹桥街道图书馆", title: "虹桥街道图书馆", children: [] },
+            ],
+          },
+          {
+            key: "仙霞新村街道",
+            title: "仙霞新村街道",
+            children: [
+              {
+                key: "仙霞新村街道文化服务中心",
+                title: "仙霞新村街道文化服务中心",
                 children: [],
               },
             ],
           },
           {
-            id: "北新泾街道",
-            name: "北新泾街道",
+            key: "程家桥街道",
+            title: "程家桥街道",
             children: [
               {
-                id: "北新泾社区文化活动中心",
-                name: "北新泾社区文化活动中心",
+                key: "程家桥社区文化活动中心",
+                title: "程家桥社区文化活动中心",
                 children: [],
               },
             ],
           },
           {
-            id: "新泾镇",
-            name: "新泾镇",
+            key: "北新泾街道",
+            title: "北新泾街道",
             children: [
               {
-                id: "新泾镇社区文化活动中心",
-                name: "新泾镇社区文化活动中心",
+                key: "北新泾社区文化活动中心",
+                title: "北新泾社区文化活动中心",
                 children: [],
               },
             ],
           },
-          { id: "长宁区博物馆", name: "长宁区博物馆", children: [] },
           {
-            id: "长宁区文化艺术中心",
-            name: "长宁区文化艺术中心",
+            key: "新泾镇",
+            title: "新泾镇",
+            children: [
+              {
+                key: "新泾镇社区文化活动中心",
+                title: "新泾镇社区文化活动中心",
+                children: [],
+              },
+            ],
+          },
+          { key: "长宁区博物馆", title: "长宁区博物馆", children: [] },
+          {
+            key: "长宁区文化艺术中心",
+            title: "长宁区文化艺术中心",
             children: [],
           },
           {
-            id: "长宁区少年儿童图书馆",
-            name: "长宁区少年儿童图书馆",
+            key: "长宁区少年儿童图书馆",
+            title: "长宁区少年儿童图书馆",
             children: [],
           },
           {
-            id: "长宁区群众艺术馆馆",
-            name: "长宁区群众艺术馆馆",
+            key: "长宁区群众艺术馆馆",
+            title: "长宁区群众艺术馆馆",
             children: [],
           },
-          { id: "长宁区非遗传承馆", name: "长宁区非遗传承馆", children: [] },
-          { id: "长宁区影剧院", name: "长宁区影剧院", children: [] },
+          { key: "长宁区非遗传承馆", title: "长宁区非遗传承馆", children: [] },
+          { key: "长宁区影剧院", title: "长宁区影剧院", children: [] },
         ],
       },
       {
-        id: "浦东新区",
-        name: "浦东新区",
+        key: "浦东新区",
+        title: "浦东新区",
         children: [
           {
-            id: "高桥镇",
-            name: "高桥镇",
+            key: "高桥镇",
+            title: "高桥镇",
             children: [
               {
-                id: "高桥镇戏曲沙龙队",
-                name: "高桥镇戏曲沙龙队",
+                key: "高桥镇戏曲沙龙队",
+                title: "高桥镇戏曲沙龙队",
                 children: [],
               },
             ],
           },
 
           {
-            id: "金桥镇",
-            name: "金桥镇",
+            key: "金桥镇",
+            title: "金桥镇",
             children: [
-              { id: "金桥镇合唱队", name: "金桥镇合唱队", children: [] },
+              { key: "金桥镇合唱队", title: "金桥镇合唱队", children: [] },
             ],
           },
 
-          { id: "浦东展览馆", name: "浦东展览馆", children: [] },
+          { key: "浦东展览馆", title: "浦东展览馆", children: [] },
         ],
       },
-      { id: "黄浦区", name: "黄浦区", children: [] },
-      { id: "徐汇区", name: "徐汇区", children: [] },
-      { id: "长宁区", name: "长宁区", children: [] },
-      { id: "静安区", name: "静安区", children: [] },
-      { id: "普陀区", name: "普陀区", children: [] },
-      { id: "虹口区", name: "虹口区", children: [] },
-      { id: "杨浦区", name: "杨浦区", children: [] },
-      { id: "闵行区", name: "闵行区", children: [] },
-      { id: "宝山区", name: "宝山区", children: [] },
-      { id: "嘉定区", name: "嘉定区", children: [] },
-      { id: "金山区", name: "金山区", children: [] },
-      { id: "松江区", name: "松江区", children: [] },
-      { id: "青浦区", name: "青浦区", children: [] },
-      { id: "奉贤区", name: "奉贤区", children: [] },
-      { id: "崇明区", name: "崇明区", children: [] },
+      { key: "黄浦区", title: "黄浦区", children: [] },
+      { key: "徐汇区", title: "徐汇区", children: [] },
+      // 重复，暂时去掉，如果需要加上，须修改key值为“长宁区1”
+      // { key: "长宁区", title: "长宁区", children: [] },
+      { key: "静安区", title: "静安区", children: [] },
+      { key: "普陀区", title: "普陀区", children: [] },
+      { key: "虹口区", title: "虹口区", children: [] },
+      { key: "杨浦区", title: "杨浦区", children: [] },
+      { key: "闵行区", title: "闵行区", children: [] },
+      { key: "宝山区", title: "宝山区", children: [] },
+      { key: "嘉定区", title: "嘉定区", children: [] },
+      { key: "金山区", title: "金山区", children: [] },
+      { key: "松江区", title: "松江区", children: [] },
+      { key: "青浦区", title: "青浦区", children: [] },
+      { key: "奉贤区", title: "奉贤区", children: [] },
+      { key: "崇明区", title: "崇明区", children: [] },
     ],
   },
 ];

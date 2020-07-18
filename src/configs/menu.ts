@@ -1,5 +1,6 @@
 import Empty from '../components/Empty';
 import Dict from '../components/Dict';
+import DataRegister from '../components/DataRegister';
 
 export type MenuItemType = {
   path: string;
@@ -18,7 +19,7 @@ const menuConfig: MenuItemType[] = [
   {
     path: '/register',
     label: '数据注册',
-    component: Empty,
+    component: DataRegister,
     auth: 0,
   },
   {
