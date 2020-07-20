@@ -5,7 +5,7 @@ import { History } from 'history';
 import { useForm } from "antd/es/form/Form";
 import getAreaData from "../../utils/area";
 import { isOk } from "../../utils/axios";
-import api from "../../configs/api";
+import api, { BASE_URL } from "../../configs/api";
 import { setToken } from "../../utils/tokenUtils";
 
 interface Props {
@@ -35,7 +35,7 @@ const LoginForm: FC<Props> = ({ visible, onClose, history }) => {
           return;
         }
         let { areaData, ...data } = values;
-        axios.create()
+        axios.create({ baseURL: BASE_URL })
           .post(`${api.user}/register`, data)
           .then(res => {
             if (isOk(res)) {

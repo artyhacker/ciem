@@ -3,12 +3,11 @@ import styles from "./Login.module.css";
 import { Input, Button, message } from "antd";
 import axios from 'axios';
 import { isOk } from "../../utils/axios";
-import api from "../../configs/api";
+import api, { BASE_URL } from "../../configs/api";
 import { RouteComponentProps } from "react-router-dom";
 import LoginForm from "./LoginForm";
 import { setToken } from "../../utils/tokenUtils";
 import { SYSTEM_TITLE } from "../../models/global";
-import getUserInfo from "../../utils/getUserInfo";
 
 const Login: FC<RouteComponentProps> = ({ history }) => {
   const [username, setUsername] = useState<string>();
@@ -17,12 +16,11 @@ const Login: FC<RouteComponentProps> = ({ history }) => {
 
   const onLogin = async () => {
     if (username && password) {
-      const res = await axios.create().post(api.login, { username, password }).catch(e => {
+      const res = await axios.create({ baseURL: BASE_URL }).post(api.login, { username, password }).catch(e => {
         return e.response || e;
       });
       if (isOk(res)) {
         setToken(res.data);
-        console.log('USER: ',getUserInfo());
         history.push('/my-data');
         message.success('登录成功，欢迎您！');
       } else {
