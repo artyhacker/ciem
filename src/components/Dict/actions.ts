@@ -17,6 +17,7 @@ export const fetchPost = async (data: DictType[], cb: (data: any) => void) => {
   const res = await axiosInstance.post(api.dict, data);
   if (isOk(res)) {
     cb(res.data);
+    message.success('导入成功');
   } else {
     message.error('导入失败');
   }
