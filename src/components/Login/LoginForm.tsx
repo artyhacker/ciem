@@ -1,9 +1,10 @@
 import React, { FC } from "react";
 import { Modal, Form, Input, Cascader, message } from "antd";
+import axios from 'axios';
 import { History } from 'history';
 import { useForm } from "antd/es/form/Form";
 import getAreaData from "../../utils/area";
-import axiosInstance, { isOk } from "../../utils/axios";
+import { isOk } from "../../utils/axios";
 import api from "../../configs/api";
 import { setToken } from "../../utils/tokenUtils";
 
@@ -34,8 +35,8 @@ const LoginForm: FC<Props> = ({ visible, onClose, history }) => {
           return;
         }
         let { areaData, ...data } = values;
-        axiosInstance
-          .post(api.user, data)
+        axios.create()
+          .post(`${api.user}/register`, data)
           .then(res => {
             if (isOk(res)) {
               setToken(res.data);
@@ -45,6 +46,14 @@ const LoginForm: FC<Props> = ({ visible, onClose, history }) => {
             } else {
               message.error('注册失败');
               // TODO: 错误处理
+              switch(res.status) {
+                case 409:
+                  console.log('用户名或机构名称重复');
+                  break;
+                default:
+                  console.log('未知错误');
+                  break;
+              }
             }
           })
           .catch(e => {

@@ -5,4 +5,5 @@ export type UserType = {
   area: number;
   areaLabel: string;
   password?: string;
+  isAdmin?: 1 | 0;
 };

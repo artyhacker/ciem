@@ -3,6 +3,9 @@ import { message } from "antd";
 import log from "loglevel";
 // import history from "./history";
 import { BASE_URL } from "../configs/api";
+import { getToken } from "./tokenUtils";
+import { setPreLocation } from "./preLocationUtils";
+import { useHistory } from "react-router-dom";
 
 // TODO: token
 // TODO: preLocation
@@ -30,15 +33,14 @@ const onRejected = (err: any): any => {
 };
 
 const requestOnFullFilled = (request: AxiosRequestConfig) => {
-  return request;
-  // const token = getToken();
-  // if (token) {
-  //   return Object.assign(request, { headers: { ...request.headers, Authorization: `Bearer ${token}` } });
-  // }
-  // message.error('登陆信息过期，请重新登陆');
-  // setPreLocation();
-  // history.push('/login');
-  // return new AuthenticationError('请重新登录');
+  const token = getToken();
+  if (token) {
+    return Object.assign(request, { headers: { ...request.headers, Authorization: `Bearer ${token}` } });
+  }
+  message.error('登陆信息过期，请重新登陆');
+  setPreLocation();
+  // @ts-ignore
+  return new AuthenticationError('请重新登录');
 };
 
 axiosInstance.interceptors.response.use(onFullFilled, onRejected);

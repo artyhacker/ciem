@@ -14,7 +14,7 @@ export const fetchList = async (cb: CallbackType) => {
 }
 
 export const fetchPost = async (data: DictType[], cb: (data: any) => void) => {
-  const res = await axiosInstance.post(api.dict, data);
+  const res = await axiosInstance.post(api.dict, { dicts: data });
   if (isOk(res)) {
     cb(res.data);
     message.success('导入成功');

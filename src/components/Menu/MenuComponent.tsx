@@ -3,7 +3,7 @@ import { Menu } from "antd";
 import { Link } from "react-router-dom";
 
 import menuConfig from "../../configs/menu";
-import { isAdmin } from "../../utils/user";
+import getUserInfo from "../../utils/getUserInfo";
 
 const menuStyle = {
   fontSize: "16px",
@@ -16,7 +16,7 @@ const menuItemStyle: CSSProperties = {
 };
 
 const MenuComponent: FC = () => {
-  const menuList = isAdmin
+  const menuList = !!getUserInfo().isAdmin
     ? menuConfig
     : menuConfig.filter((m) => m.auth === 0);
 

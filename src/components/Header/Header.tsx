@@ -7,6 +7,8 @@ import axiosInstance, { isOk } from '../../utils/axios';
 import api from '../../configs/api';
 import { clearToken } from '../../utils/tokenUtils';
 import { History } from 'history';
+import { clearPreLocation } from '../../utils/preLocationUtils';
+import getUserInfo from '../../utils/getUserInfo';
 
 interface Props {
   history: History;
@@ -23,9 +25,11 @@ const Header: FC<Props> = ({ history }) => {
   }, []);
 
   const fetchLogout = async () => {
-    const res = await axiosInstance.get(api.logout);
+    const res = await axiosInstance.get(`${api.login}/${getUserInfo().id}`);
     if (isOk(res)) {
       history.push('/login');
+      clearToken();
+      clearPreLocation();
       message.success('您已安全退出！');
       clearToken();
     } else {

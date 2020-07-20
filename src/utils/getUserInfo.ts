@@ -10,14 +10,12 @@ const getUserInfo = (): UserType | {[key: string]: string | number} => {
   if (token) {
     const payload = jwtDecode(token);
     userInfo = {
-      id: payload.userId,
+      id: payload.id,
       name: payload.name,
       username: payload.username,
-      duty: payload.duty,
-      roleId: payload.roleId,
-      roleName: payload.roleName,
-      organizationName: payload.organizationName,
-      amountSee: payload.amountSee,
+      isAdmin: payload.isAdmin,
+      area: payload.area,
+      areaLabel: payload.areaLabel,
     };
   }
   return userInfo;

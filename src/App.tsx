@@ -3,7 +3,7 @@ import styles from './App.module.css';
 import Menu from './components/Menu';
 import Routes from './components/Routes';
 import Header from './components/Header/Header';
-import { RouteComponentProps } from 'react-router-dom';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 
 const App: FC<RouteComponentProps> = ({ history }) => {
   return (
@@ -23,4 +23,4 @@ const App: FC<RouteComponentProps> = ({ history }) => {
   );
 }
 
-export default App;
+export default withRouter(App);
