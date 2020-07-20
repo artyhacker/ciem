@@ -1,100 +1,143 @@
-import React, { FC, useState, useEffect } from "react";
+import React, { FC, useState, useEffect, useMemo } from "react";
 import styles from "./styles.module.css";
 import { Row, Col, Input, Upload, Button, Divider, Select, Table } from "antd";
 import {
   UploadOutlined,
-  SearchOutlined,
-  ReloadOutlined,
 } from "@ant-design/icons";
 import * as dictActions from "../../Dict/actions";
 import { DictType } from "../../../models/dict";
 
-type DataMapType = {
-  [key: string]: { id?: string; name?: string };
+type DataMapType = { [key: string]: { id?: string; name?: string } };
+const getDataMapValue = (
+  dataMap: DataMapType,
+  id: string
+): { id?: string; name?: string } => {
+  if (!dataMap[id]) {
+    return {};
+  }
+  return dataMap[id];
 };
 
 const DataForm: FC = () => {
-  const [sType, setSType] = useState("S_NAME");
+  const [dictFilter, setDictFilter] = useState<string>();
+  const [dictFilterType, setDictFilterType] = useState<"name" | "id">("name");
   const [dictList, setDictList] = useState<DictType[]>([]);
+
   const [dataMap, setDataMap] = useState<DataMapType>({});
 
   useEffect(() => {
     dictActions.fetchList(setDictList);
   }, []);
 
-  const getDataMapValue = (r: DictType, k: "id" | "name"): string | undefined =>
-    dataMap[r.id] ? dataMap[r.id][k] : undefined;
+  const COLOMNS = useMemo(
+    () => [
+      {
+        dataIndex: "id",
+        title: "CIEM数据元字典标识符",
+        width: "25%",
+      },
+      {
+        dataIndex: "name",
+        title: "CIEM数据元字典中文名称",
+        width: "25%",
+      },
+      {
+        dataIndex: "dataId",
+        title: "源数据数据项标识符",
+        render: (v: string, r: DictType) => {
+          const value = getDataMapValue(dataMap, r.id);
+          return (
+            <Input
+              onBlur={(e) => {
+                e.persist();
+                setDataMap((prev) => ({
+                  ...prev,
+                  [r.id]: { name: value.name, id: e.target.value },
+                }));
+              }}
+              style={{ width: '80%' }}
+            />
+          );
+        },
+        width: "25%",
+      },
+      {
+        dataIndex: "dataName",
+        title: "源数据数据项中文名称",
+        render: (v: string, r: DictType) => {
+          const value = getDataMapValue(dataMap, r.id);
+          return (
+            <Input
+              onBlur={(e) => {
+                e.persist();
+                setDataMap((prev) => ({
+                  ...prev,
+                  [r.id]: { id: value.id, name: e.target.value },
+                }));
+              }}
+            />
+          );
+        },
+        width: "20%",
+      },
+    ],
+    [dataMap]
+  );
 
-  const setDataMapValue = (r: DictType, k: "id" | "name", v: string) => {
-    setDataMap((prev) => ({
-      ...prev,
-      [r.id]: prev[r.id] ? { ...prev[r.id], [k]: v } : { [k]: v },
-    }));
-  };
-    
-  const COLOMNS = [
-    {
-      dataIndex: "id",
-      title: "CIEM数据元字典标识符",
-      width: "25%",
-    },
-    {
-      dataIndex: "name",
-      title: "CIEM数据元字典中文名称",
-      width: "25%",
-    },
-    {
-      dataIndex: "dataId",
-      title: "源数据数据项标识符",
-      render: (v: string, r: DictType) => (
-        <Input size="small" value={getDataMapValue(r, "id")} onChange={e => setDataMapValue(r, 'id', e.target.value)} />
-      ),
-      width: "25%",
-    },
-    {
-      dataIndex: "dataName",
-      title: "源数据数据项中文名称",
-      render: (v: string, r: DictType) => (
-        <Input size="small" value={getDataMapValue(r, "name")} onChange={e => setDataMapValue(r, 'name', e.target.value)} />
-      ),
-      width: "25%",
-    },
-  ];
+  const selectBefore = useMemo(
+    () => (
+      <Select value={dictFilterType} onChange={(v) => setDictFilterType(v)}>
+        <Select.Option value="name">按中文名检索</Select.Option>
+        <Select.Option value="id">按标识符检索</Select.Option>
+      </Select>
+    ),
+    [dictFilterType]
+  );
 
-  const selectBefore = (
-    <Select value={sType} onChange={(v) => setSType(v)}>
-      <Select.Option value="S_NAME">字典中文名检索</Select.Option>
-      <Select.Option value="S_ID">字典标识符检索</Select.Option>
-    </Select>
+  const showDictList = useMemo(
+    () =>
+      dictFilter
+        ? dictList.filter((d) => d[dictFilterType].indexOf(dictFilter) > -1)
+        : dictList,
+    [dictFilter, dictFilterType, dictList]
   );
 
   return (
     <div className={styles.right}>
-      <Row>
-        <Col span={10} style={{ padding: "0 2rem" }}>
+      <Row gutter={[32, 16]} style={{ paddingLeft: "1rem" }}>
+        <Col span={8}>
           <Input placeholder="数据名称" />
-          <Input placeholder="数据描述" style={{ marginTop: "1rem" }} />
         </Col>
-        <Col span={14}>
+        <Col span={8}>
+          <Input placeholder="数据描述" />
+        </Col>
+        <Col span={8}>
           <Upload>
             <Button type="primary">
-              <UploadOutlined /> 上传
+              <UploadOutlined /> 上传Excel
             </Button>
           </Upload>
+        </Col>
+        <Col span={8}>
+          <Input placeholder="数据库表所在服务器IP" />
+        </Col>
+        <Col span={8}>
+          <Input placeholder="端口" />
+        </Col>
+        <Col span={8}>
+          <span>协议类型：HTTP；请求方式：POST</span>
         </Col>
       </Row>
       <Divider />
       <Row>
-        <Col span={10} style={{ padding: "0 2rem" }}>
-          <Input addonBefore={selectBefore} />
-        </Col>
-        <Col span={6}>
-          <Button type="primary" title="检索" style={{ marginRight: "1rem" }} onClick={() => console.log(dataMap)}>
-            <SearchOutlined /> 检索
-          </Button>
-          <Button type="primary" title="重置">
-            <ReloadOutlined /> 重置
-          </Button>
+        <Col span={8} style={{ paddingLeft: "1rem" }}>
+          <Input
+            addonBefore={selectBefore}
+            placeholder="检索数据元字典"
+            allowClear
+            value={dictFilter}
+            onChange={(e) => setDictFilter(e.target.value)}
+          />
         </Col>
       </Row>
       <div
@@ -109,7 +152,7 @@ const DataForm: FC = () => {
         <Table
           rowKey="id"
           columns={COLOMNS}
-          dataSource={dictList}
+          dataSource={showDictList}
           size="small"
           pagination={false}
           bordered
