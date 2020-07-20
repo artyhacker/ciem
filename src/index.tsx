@@ -5,13 +5,14 @@ import zhCN from "antd/es/locale/zh_CN";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
+import { Switch, Route, Router } from "react-router-dom";
 import Login from "./components/Login";
+import history from './utils/history'
 
 ReactDOM.render(
   <React.StrictMode>
     <ConfigProvider locale={zhCN}>
-      <Router>
+      <Router history={history}>
         <Switch>
           <Route exact path="/login/:type?" component={Login} />
           <App />

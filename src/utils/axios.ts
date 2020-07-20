@@ -5,10 +5,7 @@ import log from "loglevel";
 import { BASE_URL } from "../configs/api";
 import { getToken } from "./tokenUtils";
 import { setPreLocation } from "./preLocationUtils";
-import { useHistory } from "react-router-dom";
-
-// TODO: token
-// TODO: preLocation
+import history from "./history";
 
 // 身份认证错误
 function AuthenticationError(message: string) {
@@ -39,6 +36,7 @@ const requestOnFullFilled = (request: AxiosRequestConfig) => {
   }
   message.error('登陆信息过期，请重新登陆');
   setPreLocation();
+  history.push('/login');
   // @ts-ignore
   return new AuthenticationError('请重新登录');
 };
