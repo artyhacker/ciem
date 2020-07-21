@@ -7,12 +7,12 @@ type DataMapType = {
 type ExcelDataType = { [key: string ]: string };
 
 export type DataType = {
-  id: string;
+  id?: string;
   name: string;
   describe: string;
   type: string;
   dataMap: DataMapType[];
-  data: ExcelDataType;
+  data: ExcelDataType[];
   tableName: string;
   uploader: string;
   ip: string;
@@ -20,3 +20,17 @@ export type DataType = {
   protocol: string;
   method: string;
 }
+
+export const DEFAULT_DATA: DataType = {
+  name: '',
+  describe: '',
+  type: '',
+  dataMap: [],
+  data: [],
+  tableName: '',
+  uploader: '',
+  ip: '',
+  port: '',
+  protocol: 'HTTP',
+  method: 'POST',
+};
