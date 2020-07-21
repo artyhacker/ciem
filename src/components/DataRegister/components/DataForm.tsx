@@ -12,9 +12,10 @@ import { DataType, DEFAULT_DATA, ExcelDataType } from "../../../models/data";
 import DataDictMap from "./DataDictMap";
 import { RcFile } from "antd/es/upload/interface";
 import { validateForm } from '../utils';
+import { CallbackType } from "../../../models/global";
 
 interface Props {
-  onRegister: (data: DataType) => void;
+  onRegister: (data: DataType, cb: CallbackType) => void;
 }
 
 const EXCEL_TYPE_LIST = ["xls", "xlsx", "csv"];
@@ -34,6 +35,11 @@ const DataForm: FC<Props> = ({ onRegister }) => {
   const [dataMap, setDataMap] = useState<DataMapType>({});
   const [item, setItem] = useState<DataType>(DEFAULT_DATA);
 
+  const onReset = useCallback(() => {
+    setItem(DEFAULT_DATA);
+    setDataMap({});
+  }, []);
+
   const onSave = useCallback(() => {
     let postDataMap = Object.keys(dataMap).map((key) => ({
       dictId: key,
@@ -45,14 +51,9 @@ const DataForm: FC<Props> = ({ onRegister }) => {
       dataMap: postDataMap,
     };
     if (validateForm(postData)) {
-      onRegister(postData);
+      onRegister(postData, onReset);
     }
-  }, [item, dataMap, onRegister]);
-
-  const onReset = useCallback(() => {
-    setItem(DEFAULT_DATA);
-    setDataMap({});
-  }, []);
+  }, [item, dataMap, onRegister, onReset]);
 
   const beforeUpload = (file: RcFile) => {
     const index = file.name.lastIndexOf(".");

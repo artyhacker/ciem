@@ -21,6 +21,7 @@ const api = {
   logout: '/logout',
   user: '/user',
   dict: '/dicts',
+  data: '/data',
 };
 
 export default api;
