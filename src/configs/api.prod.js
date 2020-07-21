@@ -1,8 +1,8 @@
 const apiConfig = {
-  protocol: 'http',
+  protocol: 'https',
   ip: '',
-  port: 8089,
-  prefix: '',
+  port: '',
+  prefix: '/api',
 };
 
 export default apiConfig;

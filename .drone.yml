@@ -43,7 +43,7 @@ steps:
         path: /var/run/docker.sock
     commands:
       - docker build -t ciem_front_end_test:${DRONE_BUILD_NUMBER} .
-      - docker stop ciem_front_end_test
+      - docker stop ciem_front_end_test &> /dev/null || true
       - docker run --rm -p 8800:80 -d --name=ciem_front_end_test ciem_front_end_test:${DRONE_BUILD_NUMBER}
     when:
       ref:
