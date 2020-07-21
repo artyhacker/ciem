@@ -11,7 +11,7 @@ const DataRegisterContainer: FC = () => {
   const onRegister = useCallback(
     (data: DataType) => {
       const { name } = getUserInfo();
-      const postData: DataType = Object.assign(data, { type, name });
+      const postData: DataType = Object.assign(data, { type, uploader: name });
       console.log(postData);
     },
     [type]

@@ -4,7 +4,7 @@ type DataMapType = {
   dictId: string;
 };
 
-type ExcelDataType = { [key: string ]: string };
+export type ExcelDataType = { [key: string ]: string };
 
 export type DataType = {
   id?: string;
