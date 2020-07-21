@@ -10,16 +10,26 @@ import {
 import { DataType, DEFAULT_DATA } from "../../../models/data";
 import DataDictMap from "./DataDictMap";
 
-export type DataMapType = { [key: string]: { id?: string; name?: string } };
+interface Props {
+  onRegister: (data: DataType) => void;
+}
 
-const DataForm: FC = () => {
+export type DataMapType = { [key: string]: { id: string; name: string } };
+
+const DataForm: FC<Props> = ({ onRegister }) => {
   const [dataMap, setDataMap] = useState<DataMapType>({});
   const [item, setItem] = useState<DataType>(DEFAULT_DATA);
 
   const onSave = useCallback(() => {
-    console.log(item);
-    console.log(dataMap);
-  }, [item, dataMap]);
+    const postDataMap = Object.keys(dataMap).map((key) => ({
+      dictId: key,
+      ...dataMap[key],
+    }));
+    onRegister({
+      ...item,
+      dataMap: postDataMap,
+    });
+  }, [item, dataMap, onRegister]);
 
   const onReset = useCallback(() => {
     setItem(DEFAULT_DATA);
@@ -77,7 +87,9 @@ const DataForm: FC = () => {
           />
         </Col>
         <Col span={8}>
-          <span>协议类型：HTTP；请求方式：POST</span>
+          <span>{`协议类型：${item.protocol || "HTTP"}；请求方式：${
+            item.method || "POST"
+          }`}</span>
         </Col>
       </Row>
       <Divider />

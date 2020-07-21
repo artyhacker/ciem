@@ -1,4 +1,11 @@
-import React, { useState, useEffect, useMemo, Dispatch, SetStateAction, FC } from "react";
+import React, {
+  useState,
+  useEffect,
+  useMemo,
+  Dispatch,
+  SetStateAction,
+  FC,
+} from "react";
 import { DataMapType } from "./DataForm";
 import { DictType } from "../../../models/dict";
 import * as dictActions from "../../Dict/actions";
@@ -12,9 +19,9 @@ interface Props {
 const getDataMapValue = (
   dataMap: DataMapType,
   id: string
-): { id?: string; name?: string } => {
+): { id: string; name: string } => {
   if (!dataMap[id]) {
-    return {};
+    return { id: "", name: "" };
   }
   return dataMap[id];
 };
@@ -49,14 +56,13 @@ const DataDictMap: FC<Props> = ({ dataMap, setDataMap }) => {
             <Input
               size="small"
               value={value.id}
-              onBlur={(e) => {
+              onChange={(e) => {
                 e.persist();
                 setDataMap((prev) => ({
                   ...prev,
                   [r.id]: { name: value.name, id: e.target.value },
                 }));
               }}
-              style={{ width: "80%" }}
             />
           );
         },
@@ -71,7 +77,7 @@ const DataDictMap: FC<Props> = ({ dataMap, setDataMap }) => {
             <Input
               size="small"
               value={value.name}
-              onBlur={(e) => {
+              onChange={(e) => {
                 e.persist();
                 setDataMap((prev) => ({
                   ...prev,
@@ -81,7 +87,7 @@ const DataDictMap: FC<Props> = ({ dataMap, setDataMap }) => {
             />
           );
         },
-        width: "20%",
+        width: "25%",
       },
     ],
     [dataMap, setDataMap]
@@ -133,6 +139,10 @@ const DataDictMap: FC<Props> = ({ dataMap, setDataMap }) => {
           dataSource={showDictList}
           size="small"
           bordered
+          pagination={{
+            defaultPageSize: 20,
+            showQuickJumper: true,
+          }}
         />
       </div>
     </>
