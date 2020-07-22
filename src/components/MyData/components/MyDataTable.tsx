@@ -12,8 +12,10 @@ interface Props {
 }
 
 const columns = [
-  { title: "数据名称", dataIndex: "name", width: "35%" },
-  { title: "数据描述", dataIndex: "describe", width: "35%" },
+  { title: "数据名称", dataIndex: "name", width: "25%" },
+  { title: "数据描述", dataIndex: "describe", width: "25%" },
+  // TODO: 调试完毕删除
+  { title: "类型(待隐藏)", dataIndex: "type", width: "25%" },
   {
     title: "操作",
     dataIndex: "OPERATIONS",
