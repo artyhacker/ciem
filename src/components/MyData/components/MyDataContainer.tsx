@@ -3,8 +3,9 @@ import styles from "./styles.module.css";
 import MyDataSearch from "./MyDataSearch";
 import DataTypeTree from "../../DataRegister/components/DataTypeTree";
 import MyDataTable from "./MyDataTable";
-import { fetchMyData } from "../actions";
-import { MyDataType } from "../../../models/data";
+import { fetchMyData, fetchMyDataItem } from "../actions";
+import { MyDataType, DataType } from "../../../models/data";
+import MyDataDescModal from "./MyDataDescModal";
 
 export type MyDataSearchType = {
   name?: string;
@@ -16,6 +17,9 @@ const MyDataContainer: FC = () => {
   const [type, setType] = useState<string>("上海市");
   const [params, setParams] = useState<MyDataSearchType>({});
   const [dataSource, setDataSource] = useState<MyDataType[]>([]);
+
+  const [descVisible, setDescVisible] = useState(false);
+  const [descItem, setDescItem] = useState<DataType>();
 
   useEffect(() => {
     const cb = (value: MyDataType[]) => {
@@ -57,6 +61,19 @@ const MyDataContainer: FC = () => {
     onSearch({});
   }, [onSearch]);
 
+  const onDesc = useCallback((item: MyDataType) => {
+    const cb = (resData: DataType) => {
+      setDescItem(resData);
+      setDescVisible(true);
+    };
+    fetchMyDataItem(item, cb);
+  }, []);
+
+  const onCloseDesc = useCallback(() => {
+    setDescItem(undefined);
+    setDescVisible(false);
+  }, []);
+
   return (
     <div className={styles.container}>
       <MyDataSearch
@@ -70,9 +87,10 @@ const MyDataContainer: FC = () => {
           <DataTypeTree selectedKey={type} onSelect={onSelectType} />
         </div>
         <div className={styles.right}>
-          <MyDataTable dataSource={dataSource} />
+          <MyDataTable dataSource={dataSource} onDesc={onDesc} />
         </div>
       </div>
+      <MyDataDescModal visible={descVisible} item={descItem} onClose={onCloseDesc} />
     </div>
   );
 };
