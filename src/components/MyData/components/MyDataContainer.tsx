@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, { FC, useState, useEffect, useMemo } from 'react';
 import styles from './styles.module.css';
 import MyDataSearch from './MyDataSearch';
 import DataTypeTree from '../../DataRegister/components/DataTypeTree';
@@ -14,6 +14,10 @@ const MyDataContainer: FC = () => {
     fetchMyData(setList);
   }, []);
 
+  const dataSource = useMemo(() => {
+    return list.filter(lf => lf.type.indexOf(type) === 0);
+  }, [type, list]);
+
   return (
     <div className={styles.container}>
       <MyDataSearch />
@@ -22,7 +26,7 @@ const MyDataContainer: FC = () => {
           <DataTypeTree selectedKey={type} onSelect={setType} />
         </div>
         <div className={styles.right}>
-          <MyDataTable dataSource={list} />
+          <MyDataTable dataSource={dataSource} />
         </div>
       </div>
     </div>
