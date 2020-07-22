@@ -1,6 +1,7 @@
 import Empty from '../components/Empty';
 import Dict from '../components/Dict';
 import DataRegister from '../components/DataRegister';
+import MyData from '../components/MyData';
 
 export type MenuItemType = {
   path: string;
@@ -25,7 +26,7 @@ const menuConfig: MenuItemType[] = [
   {
     path: '/my-data',
     label: '我的数据',
-    component: Empty,
+    component: MyData,
     auth: 0,
   },
   {

@@ -34,3 +34,10 @@ export const DEFAULT_DATA: DataType = {
   protocol: 'HTTP',
   method: 'POST',
 };
+
+export type MyDataType = {
+  id: string;
+  name: string;
+  describe: string;
+  type: string;
+};
