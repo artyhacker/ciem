@@ -1,4 +1,4 @@
-import React, { FC, useState, useCallback } from "react";
+import React, { FC, useState, useCallback, useEffect } from "react";
 import styles from "./styles.module.css";
 import { Row, Col, Input, Upload, Button, Divider, message } from "antd";
 import XLSX from "xlsx";
@@ -11,10 +11,12 @@ import {
 import { DataType, DEFAULT_DATA, ExcelDataType } from "../../../models/data";
 import DataDictMap from "./DataDictMap";
 import { RcFile } from "antd/es/upload/interface";
-import { validateForm } from '../utils';
+import { validateForm, fetchDataItem } from "../utils";
 import { CallbackType } from "../../../models/global";
+import { withRouter, RouteComponentProps } from "react-router-dom";
+import { Location } from "history";
 
-interface Props {
+interface Props extends RouteComponentProps {
   onRegister: (data: DataType, cb: CallbackType) => void;
 }
 
@@ -29,11 +31,34 @@ const fileNameStyle = {
   padding: "0 .5rem",
 };
 
+const getId = (location: Location): string => location.search.slice(4);
+const getDataMap = (
+  sourceData: { id: string; name: string; dictId: string }[]
+): DataMapType => {
+  const result: DataMapType = {};
+  sourceData.forEach((s) => {
+    result[s.dictId] = s;
+  });
+  return result;
+};
+
 export type DataMapType = { [key: string]: { id: string; name: string } };
 
-const DataForm: FC<Props> = ({ onRegister }) => {
+const DataForm: FC<Props> = ({ onRegister, location }) => {
   const [dataMap, setDataMap] = useState<DataMapType>({});
   const [item, setItem] = useState<DataType>(DEFAULT_DATA);
+  const [isEdit, setIsEdit] = useState(false);
+
+  useEffect(() => {
+    if (location.pathname === "/register" && location.search) {
+      const id = getId(location);
+      fetchDataItem(id, (data) => {
+        setItem(data);
+        setIsEdit(true);
+        setDataMap(getDataMap(data.dataMap));
+      });
+    }
+  }, [location]);
 
   const onReset = useCallback(() => {
     setItem(DEFAULT_DATA);
@@ -45,15 +70,18 @@ const DataForm: FC<Props> = ({ onRegister }) => {
       dictId: key,
       ...dataMap[key],
     }));
-    postDataMap = postDataMap.filter(pf => (!!pf.id || !!pf.name));
+    postDataMap = postDataMap.filter((pf) => !!pf.id || !!pf.name);
     const postData = {
       ...item,
       dataMap: postDataMap,
     };
-    if (validateForm(postData)) {
-      onRegister(postData, onReset);
+    if (validateForm(postData, isEdit)) {
+      onRegister(postData, () => {
+        onReset();
+        message.success(isEdit ? "编辑成功" : "注册成功");
+      });
     }
-  }, [item, dataMap, onRegister, onReset]);
+  }, [item, dataMap, onRegister, onReset, isEdit]);
 
   const beforeUpload = (file: RcFile) => {
     const index = file.name.lastIndexOf(".");
@@ -104,7 +132,7 @@ const DataForm: FC<Props> = ({ onRegister }) => {
         <Col span={8}>
           <div style={{ display: "flex", flexDirection: "row" }}>
             <Upload action="#" beforeUpload={beforeUpload} fileList={[]}>
-              <Button type="primary">
+              <Button type="primary" disabled={isEdit}>
                 <UploadOutlined /> 上传Excel
               </Button>
             </Upload>
@@ -132,9 +160,9 @@ const DataForm: FC<Props> = ({ onRegister }) => {
           />
         </Col>
         <Col span={8}>
-          <span style={{ height: '2rem', lineHeight: '2rem' }}>{`协议类型：${item.protocol || "HTTP"}；请求方式：${
-            item.method || "POST"
-          }`}</span>
+          <span style={{ height: "2rem", lineHeight: "2rem" }}>{`协议类型：${
+            item.protocol || "HTTP"
+          }；请求方式：${item.method || "POST"}`}</span>
         </Col>
       </Row>
       <Divider />
@@ -158,4 +186,4 @@ const DataForm: FC<Props> = ({ onRegister }) => {
   );
 };
 
-export default DataForm;
+export default withRouter(DataForm);
