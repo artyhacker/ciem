@@ -1,6 +1,6 @@
 import React, { FC, useState, useEffect, CSSProperties } from "react";
 import { Menu } from "antd";
-import { Link } from "react-router-dom";
+import { Link, withRouter, RouteComponentProps } from "react-router-dom";
 
 import menuConfig from "../../configs/menu";
 import getUserInfo from "../../utils/getUserInfo";
@@ -15,13 +15,13 @@ const menuItemStyle: CSSProperties = {
   lineHeight: "50px",
 };
 
-const MenuComponent: FC = () => {
+const MenuComponent: FC<RouteComponentProps> = ({ location }) => {
   const menuList = !!getUserInfo().isAdmin
     ? menuConfig
     : menuConfig.filter((m) => m.auth === 0);
 
-  const [keys, setKeys] = useState<string[]>([window.location.pathname]);
-  useEffect(() => setKeys([window.location.pathname]), []);
+  const [keys, setKeys] = useState<string[]>([location.pathname]);
+  useEffect(() => setKeys([location.pathname]), [location]);
 
   return (
     <Menu
@@ -42,4 +42,4 @@ const MenuComponent: FC = () => {
   );
 };
 
-export default MenuComponent;
+export default withRouter(MenuComponent);
