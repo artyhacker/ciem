@@ -18,6 +18,7 @@ import { Location } from "history";
 
 interface Props extends RouteComponentProps {
   onRegister: (data: DataType, cb: CallbackType) => void;
+  setType: (type: string) => void;
 }
 
 const EXCEL_TYPE_LIST = ["xls", "xlsx", "csv"];
@@ -44,7 +45,7 @@ const getDataMap = (
 
 export type DataMapType = { [key: string]: { id: string; name: string } };
 
-const DataForm: FC<Props> = ({ onRegister, location }) => {
+const DataForm: FC<Props> = ({ onRegister, location, setType }) => {
   const [dataMap, setDataMap] = useState<DataMapType>({});
   const [item, setItem] = useState<DataType>(DEFAULT_DATA);
   const [isEdit, setIsEdit] = useState(false);
@@ -56,9 +57,10 @@ const DataForm: FC<Props> = ({ onRegister, location }) => {
         setItem(data);
         setIsEdit(true);
         setDataMap(getDataMap(data.dataMap));
+        setType(data.type);
       });
     }
-  }, [location]);
+  }, [location, setType]);
 
   const onReset = useCallback(() => {
     setItem(DEFAULT_DATA);

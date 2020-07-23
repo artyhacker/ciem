@@ -24,7 +24,7 @@ const DataRegisterContainer: FC = () => {
       <div className={styles.left}>
         <DataTypeTree onSelect={setType} selectedKey={type} />
       </div>
-      <DataForm onRegister={onRegister} />
+      <DataForm onRegister={onRegister} setType={setType} />
     </div>
   );
 };
