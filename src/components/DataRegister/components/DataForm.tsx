@@ -1,6 +1,6 @@
 import React, { FC, useState, useCallback, useEffect } from "react";
 import styles from "./styles.module.css";
-import { Row, Col, Input, Upload, Button, Divider, message } from "antd";
+import { Row, Col, Input, Upload, Button, Divider, message, Spin } from "antd";
 import XLSX from "xlsx";
 import {
   UploadOutlined,
@@ -49,15 +49,18 @@ const DataForm: FC<Props> = ({ onRegister, location, setType }) => {
   const [dataMap, setDataMap] = useState<DataMapType>({});
   const [item, setItem] = useState<DataType>(DEFAULT_DATA);
   const [isEdit, setIsEdit] = useState(false);
+  const [spinning, setSpinning] = useState(false);
 
   useEffect(() => {
     if (location.pathname === "/register" && location.search) {
       const id = getId(location);
+      setSpinning(true);
       fetchDataItem(id, (data) => {
         setItem(data);
         setIsEdit(true);
         setDataMap(getDataMap(data.dataMap));
         setType(data.type);
+        setSpinning(false);
       });
     }
   }, [location, setType]);
@@ -68,6 +71,7 @@ const DataForm: FC<Props> = ({ onRegister, location, setType }) => {
   }, []);
 
   const onSave = useCallback(() => {
+    setSpinning(true);
     let postDataMap = Object.keys(dataMap).map((key) => ({
       dictId: key,
       ...dataMap[key],
@@ -81,6 +85,7 @@ const DataForm: FC<Props> = ({ onRegister, location, setType }) => {
       onRegister(postData, () => {
         onReset();
         message.success(isEdit ? "编辑成功" : "注册成功");
+        setSpinning(false);
       });
     }
   }, [item, dataMap, onRegister, onReset, isEdit]);
@@ -110,63 +115,65 @@ const DataForm: FC<Props> = ({ onRegister, location, setType }) => {
 
   return (
     <div className={styles.right}>
-      <Row gutter={[32, 16]} style={{ paddingLeft: "1rem" }}>
-        <Col span={8}>
-          <Input
-            placeholder="数据名称"
-            value={item.name}
-            onChange={(e) => {
-              e.persist();
-              setItem((prev) => ({ ...prev, name: e.target.value }));
-            }}
-          />
-        </Col>
-        <Col span={8}>
-          <Input
-            placeholder="数据描述"
-            value={item.describe}
-            onChange={(e) => {
-              e.persist();
-              setItem((prev) => ({ ...prev, describe: e.target.value }));
-            }}
-          />
-        </Col>
-        <Col span={8}>
-          <div style={{ display: "flex", flexDirection: "row" }}>
-            <Upload action="#" beforeUpload={beforeUpload} fileList={[]}>
-              <Button type="primary" disabled={isEdit}>
-                <UploadOutlined /> 上传Excel
-              </Button>
-            </Upload>
-            <div style={fileNameStyle}>{item.tableName || "未上传文件"}</div>
-          </div>
-        </Col>
-        <Col span={8}>
-          <Input
-            placeholder="数据库表所在服务器IP"
-            value={item.ip}
-            onChange={(e) => {
-              e.persist();
-              setItem((prev) => ({ ...prev, ip: e.target.value }));
-            }}
-          />
-        </Col>
-        <Col span={8}>
-          <Input
-            placeholder="端口"
-            value={item.port}
-            onChange={(e) => {
-              e.persist();
-              setItem((prev) => ({ ...prev, port: e.target.value }));
-            }}
-          />
-        </Col>
-        <Col span={8}>
-          <span style={{ height: "2rem", lineHeight: "2rem" }}>{`协议类型：${
-            item.protocol || "HTTP"
-          }；请求方式：${item.method || "POST"}`}</span>
-        </Col>
-      </Row>
+      <Spin spinning={spinning}>
+        <Row gutter={[32, 16]} style={{ paddingLeft: "1rem" }}>
+          <Col span={8}>
+            <Input
+              placeholder="数据名称"
+              value={item.name}
+              onChange={(e) => {
+                e.persist();
+                setItem((prev) => ({ ...prev, name: e.target.value }));
+              }}
+            />
+          </Col>
+          <Col span={8}>
+            <Input
+              placeholder="数据描述"
+              value={item.describe}
+              onChange={(e) => {
+                e.persist();
+                setItem((prev) => ({ ...prev, describe: e.target.value }));
+              }}
+            />
+          </Col>
+          <Col span={8}>
+            <div style={{ display: "flex", flexDirection: "row" }}>
+              <Upload action="#" beforeUpload={beforeUpload} fileList={[]}>
+                <Button type="primary" disabled={isEdit}>
+                  <UploadOutlined /> 上传Excel
+                </Button>
+              </Upload>
+              <div style={fileNameStyle}>{item.tableName || "未上传文件"}</div>
+            </div>
+          </Col>
+          <Col span={8}>
+            <Input
+              placeholder="数据库表所在服务器IP"
+              value={item.ip}
+              onChange={(e) => {
+                e.persist();
+                setItem((prev) => ({ ...prev, ip: e.target.value }));
+              }}
+            />
+          </Col>
+          <Col span={8}>
+            <Input
+              placeholder="端口"
+              value={item.port}
+              onChange={(e) => {
+                e.persist();
+                setItem((prev) => ({ ...prev, port: e.target.value }));
+              }}
+            />
+          </Col>
+          <Col span={8}>
+            <span style={{ height: "2rem", lineHeight: "2rem" }}>{`协议类型：${
+              item.protocol || "HTTP"
+            }；请求方式：${item.method || "POST"}`}</span>
+          </Col>
+        </Row>
+      </Spin>
       <Divider />
       <DataDictMap dataMap={dataMap} setDataMap={setDataMap} />
       <Divider />
