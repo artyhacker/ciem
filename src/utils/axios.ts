@@ -24,8 +24,23 @@ const onFullFilled = (response: AxiosResponse): AxiosResponse => {
 };
 
 const onRejected = (err: any): any => {
-  log.error(`${err}`);
-  message.info("操作失败", 1);
+  if (err.response) {
+    const { status } = err.response;
+    switch (status) {
+      case 401: {
+        message.info('登录信息已过期，请重新登录');
+        history.push('/login');
+        break;
+      }
+      default:
+        message.info('操作失败');
+        log.error('response: ', `${err.response}`);
+        break;
+    }
+  } else {
+    message.info('操作失败');
+    log.error(`${err}`);
+  }
   return err;
 };
 
