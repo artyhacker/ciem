@@ -11,9 +11,10 @@ import history from "../../../utils/history";
 interface Props {
   dataSource: MyDataType[];
   onDesc: (item: MyDataType) => void;
+  onDel: (item: MyDataType) => void;
 }
 
-const MyDataTable: FC<Props> = ({ dataSource, onDesc }) => {
+const MyDataTable: FC<Props> = ({ dataSource, onDesc, onDel }) => {
   const columns = useMemo(
     () => [
       { title: "数据名称", dataIndex: "name", width: "35%" },
@@ -41,7 +42,7 @@ const MyDataTable: FC<Props> = ({ dataSource, onDesc }) => {
             >
               编辑 <EditOutlined />
             </Button>
-            <Popconfirm title="确认删除？">
+            <Popconfirm title="确认删除？" onConfirm={() => onDel(r)}>
               <Button size="small" style={{ color: "#1890FF" }} title="删除">
                 删除 <DeleteOutlined />
               </Button>

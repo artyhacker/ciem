@@ -3,9 +3,10 @@ import styles from "./styles.module.css";
 import MyDataSearch from "./MyDataSearch";
 import DataTypeTree from "../../DataRegister/components/DataTypeTree";
 import MyDataTable from "./MyDataTable";
-import { fetchMyData, fetchMyDataItem } from "../actions";
+import { fetchMyData, fetchMyDataItem, fetchDelMyData } from "../actions";
 import { MyDataType, DataType } from "../../../models/data";
 import MyDataDescModal from "./MyDataDescModal";
+import { message } from "antd";
 
 export type MyDataSearchType = {
   name?: string;
@@ -74,6 +75,15 @@ const MyDataContainer: FC = () => {
     setDescVisible(false);
   }, []);
 
+  const onDel = useCallback((item: MyDataType) => {
+    const cb = () => {
+      setList(prev => (prev.filter(pf => pf.id !== item.id)));
+      setDataSource(prev => (prev.filter(pf => pf.id !== item.id)));
+      message.success('删除成功');
+    };
+    fetchDelMyData(item, cb);
+  }, []);
+
   return (
     <div className={styles.container}>
       <MyDataSearch
@@ -87,7 +97,7 @@ const MyDataContainer: FC = () => {
           <DataTypeTree selectedKey={type} onSelect={onSelectType} />
         </div>
         <div className={styles.right}>
-          <MyDataTable dataSource={dataSource} onDesc={onDesc} />
+          <MyDataTable dataSource={dataSource} onDesc={onDesc} onDel={onDel} />
         </div>
       </div>
       <MyDataDescModal visible={descVisible} item={descItem} onClose={onCloseDesc} />
