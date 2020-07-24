@@ -4,17 +4,21 @@ import DataTypeTree from "./DataTypeTree";
 import DataForm from "./DataForm";
 import { DataType } from "../../../models/data";
 import getUserInfo from "../../../utils/getUserInfo";
-import { fetchRegister } from "../utils";
+import { fetchRegister, fetchPut } from "../utils";
 import { CallbackType } from "../../../models/global";
 
 const DataRegisterContainer: FC = () => {
   const [type, setType] = useState<string>("上海市");
 
   const onRegister = useCallback(
-    (data: DataType, cb: CallbackType) => {
+    (data: DataType, cb: CallbackType, isEdit: boolean) => {
       const { name } = getUserInfo();
       const postData: DataType = Object.assign(data, { type, uploader: name });
-      fetchRegister(postData, cb);
+      if (isEdit) {
+        fetchPut(postData, cb);
+      } else {
+        fetchRegister(postData, cb);
+      }
     },
     [type]
   );

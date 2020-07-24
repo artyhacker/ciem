@@ -41,6 +41,20 @@ export const fetchRegister = async (data: DataType, cb: CallbackType) => {
   }
 };
 
+export const fetchPut = async (data: DataType, cb: CallbackType) => {
+  const res = await axiosInstance.put(`${api.data}/${data.id}`, data).catch((e) => {
+    console.log(e);
+    return e.response;
+  });
+  if (isOk(res)) {
+    if (typeof cb === "function") {
+      cb(res.data);
+    }
+  } else {
+    message.error("编辑失败");
+  }
+};
+
 export const fetchDataItem = async (id: string, cb: CallbackType) => {
   const res = await axiosInstance
     .get(`${api.data}/${id}`)

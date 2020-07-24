@@ -17,7 +17,7 @@ import { withRouter, RouteComponentProps } from "react-router-dom";
 import { Location } from "history";
 
 interface Props extends RouteComponentProps {
-  onRegister: (data: DataType, cb: CallbackType) => void;
+  onRegister: (data: DataType, cb: CallbackType, isEdit: boolean) => void;
   setType: (type: string) => void;
 }
 
@@ -86,7 +86,7 @@ const DataForm: FC<Props> = ({ onRegister, location, setType }) => {
         onReset();
         message.success(isEdit ? "编辑成功" : "注册成功");
         setSpinning(false);
-      });
+      }, isEdit);
     }
   }, [item, dataMap, onRegister, onReset, isEdit]);
 
