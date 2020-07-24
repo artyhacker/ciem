@@ -1,4 +1,4 @@
-import devConfig from './api.dev';
+// import devConfig from './api.dev';
 import prodConfig from './api.prod';
 
 const generateUrl = (apiConfig) => (`${apiConfig.protocol}://${apiConfig.ip || window.location.hostname}:${apiConfig.port}${apiConfig.prefix}`);
@@ -6,8 +6,8 @@ const generateUrl = (apiConfig) => (`${apiConfig.protocol}://${apiConfig.ip || w
 let BASE_URL = '';
 
 if (process.env.NODE_ENV === 'development') {
-  BASE_URL = generateUrl(devConfig);
-  // BASE_URL = '';
+  // BASE_URL = generateUrl(devConfig);
+  BASE_URL = '';
 } else if (process.env.NODE_ENV === 'production') {
   BASE_URL = generateUrl(prodConfig);
 } else {
