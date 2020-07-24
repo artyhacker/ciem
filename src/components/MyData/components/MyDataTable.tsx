@@ -51,7 +51,7 @@ const MyDataTable: FC<Props> = ({ dataSource, onDesc, onDel }) => {
         ),
       },
     ],
-    [onDesc]
+    [onDesc, onDel]
   );
 
   return (
