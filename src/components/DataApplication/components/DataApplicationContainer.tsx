@@ -1,22 +1,22 @@
 import React, { FC, useState, useEffect, useCallback } from "react";
 import styles from "../../styles.module.css";
-import MyDataSearch from "./MyDataSearch";
+import MyDataSearch from "./DataApplicationSearch";
 import DataTypeTree from "../../DataRegister/components/DataTypeTree";
-import MyDataTable from "./MyDataTable";
-import { fetchMyData, fetchMyDataItem, fetchDelMyData } from "../actions";
+import MyDataTable from "./DataApplicationTable";
 import { MyDataType, DataType } from "../../../models/data";
-import MyDataDescModal from "./MyDataDescModal";
-import { message } from "antd";
+import MyDataDescModal from "./DataApplicationDescModal";
+import { fetchData, fetchDataItem } from "../actions";
 
-export type MyDataSearchType = {
+export type DataSearchType = {
   name?: string;
   describe?: string;
+  uploader?: string;
 };
 
-const MyDataContainer: FC = () => {
+const DataApplicationContainer: FC = () => {
   const [list, setList] = useState<MyDataType[]>([]);
   const [type, setType] = useState<string>("上海市");
-  const [params, setParams] = useState<MyDataSearchType>({});
+  const [params, setParams] = useState<DataSearchType>({});
   const [dataSource, setDataSource] = useState<MyDataType[]>([]);
 
   const [descVisible, setDescVisible] = useState(false);
@@ -27,11 +27,11 @@ const MyDataContainer: FC = () => {
       setList(value);
       setDataSource(value);
     };
-    fetchMyData(cb);
+    fetchData(cb);
   }, []);
 
   const onSearch = useCallback(
-    (newParams: MyDataSearchType, newType?: string) => {
+    (newParams: DataSearchType, newType?: string) => {
       const searchType = newType || type;
       let prev = list.filter((lf) => lf.type.indexOf(searchType) === 0);
       if (newParams.name) {
@@ -42,6 +42,12 @@ const MyDataContainer: FC = () => {
       if (newParams.describe) {
         prev = prev.filter(
           (pf) => pf.describe.indexOf(newParams.describe as string) > -1
+        );
+      }
+      if (newParams.uploader) {
+        prev = prev.filter(
+          // @ts-ignore
+          (pf) => pf.uploader.indexOf(newParams.uploader as string) > -1
         );
       }
       setDataSource(prev);
@@ -67,7 +73,7 @@ const MyDataContainer: FC = () => {
       setDescItem(resData);
       setDescVisible(true);
     };
-    fetchMyDataItem(item, cb);
+    fetchDataItem(item, cb);
   }, []);
 
   const onCloseDesc = useCallback(() => {
@@ -75,13 +81,8 @@ const MyDataContainer: FC = () => {
     setDescVisible(false);
   }, []);
 
-  const onDel = useCallback((item: MyDataType) => {
-    const cb = () => {
-      setList(prev => (prev.filter(pf => pf.id !== item.id)));
-      setDataSource(prev => (prev.filter(pf => pf.id !== item.id)));
-      message.success('删除成功');
-    };
-    fetchDelMyData(item, cb);
+  const onApply = useCallback((item: MyDataType) => {
+    console.log(item);
   }, []);
 
   return (
@@ -97,7 +98,7 @@ const MyDataContainer: FC = () => {
           <DataTypeTree selectedKey={type} onSelect={onSelectType} />
         </div>
         <div className={styles.right}>
-          <MyDataTable dataSource={dataSource} onDesc={onDesc} onDel={onDel} />
+          <MyDataTable dataSource={dataSource} onDesc={onDesc} onApply={onApply} />
         </div>
       </div>
       <MyDataDescModal visible={descVisible} item={descItem} onClose={onCloseDesc} />
@@ -105,4 +106,4 @@ const MyDataContainer: FC = () => {
   );
 };
 
-export default MyDataContainer;
+export default DataApplicationContainer;

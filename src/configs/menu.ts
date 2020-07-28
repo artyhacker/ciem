@@ -2,6 +2,7 @@ import Empty from '../components/Empty';
 import Dict from '../components/Dict';
 import DataRegister from '../components/DataRegister';
 import MyData from '../components/MyData';
+import DataApplication from '../components/DataApplication';
 
 export type MenuItemType = {
   path: string;
@@ -32,7 +33,7 @@ const menuConfig: MenuItemType[] = [
   {
     path: '/apply',
     label: '数据申请',
-    component: Empty,
+    component: DataApplication,
     auth: 0,
   },
   {
