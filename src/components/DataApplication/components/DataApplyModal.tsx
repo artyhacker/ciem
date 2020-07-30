@@ -1,6 +1,6 @@
 import React, { FC, useMemo, useState, useEffect } from "react";
 import { DataType } from "../../../models/data";
-import { Modal, Row, Col, Form, Input, Table, Checkbox, Radio } from "antd";
+import { Modal, Row, Col, Form, Input, Table, Checkbox, Radio, message } from "antd";
 import { DataMapType } from '../../../models/data';
 import { useForm } from "antd/es/form/Form";
 import getUserInfo from "../../../utils/getUserInfo";
@@ -11,11 +11,12 @@ interface Props {
   item: DataType | undefined;
   onClose: () => void;
   onSave: (item: DataApplicationType) => void;
+  spinning: boolean;
 }
 
 type KeyMap = { [key: string]: boolean };
 
-const DataApplyModal: FC<Props> = ({ visible, item, onClose, onSave }) => {
+const DataApplyModal: FC<Props> = ({ visible, item, onClose, onSave, spinning }) => {
   const [form] = useForm();
 
   const [reqMap, setReqMap] = useState<KeyMap>({});
@@ -50,6 +51,14 @@ const DataApplyModal: FC<Props> = ({ visible, item, onClose, onSave }) => {
       .then((values) => {
         const requestFields = Object.keys(reqMap);
         const responseFields = Object.keys(resMap);
+        if (!requestFields.length) {
+          message.info('未选择请求包');
+          return;
+        }
+        if (!responseFields.length) {
+          message.info('未选择返回包');
+          return;
+        }
         const applicant = getUserInfo().name as string; 
         const resData = { ...values, requestFields, responseFields, status: 0, applicant, dataId: item?.id || '' };
         onSave(resData as DataApplicationType);
@@ -78,27 +87,27 @@ const DataApplyModal: FC<Props> = ({ visible, item, onClose, onSave }) => {
       <Form form={form} wrapperCol={{ span: 14 }} labelCol={{ span: 8 }}>
         <Row>
           <Col span={12}>
-            <Form.Item label="申请名称" name="name">
+            <Form.Item label="申请名称" name="name" rules={[{ required: true }]}>
               <Input />
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Form.Item label="申请描述" name="describe">
+            <Form.Item label="申请描述" name="describe" rules={[{ required: true }]}>
               <Input />
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Form.Item label="申请服务器IP" name="ip">
+            <Form.Item label="申请服务器IP" name="ip" rules={[{ required: true }]}>
               <Input />
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Form.Item label="申请服务器端口" name="port">
+            <Form.Item label="申请服务器端口" name="port" rules={[{ required: true }]}>
               <Input />
             </Form.Item>
           </Col>
           <Col span={24}>
-            <Form.Item label="接口形式" wrapperCol={{ span: 18 }} labelCol={{ span: 4 }} name="apiType">
+            <Form.Item label="接口形式" wrapperCol={{ span: 18 }} labelCol={{ span: 4 }} name="apiType" rules={[{ required: true }]}>
               <Radio.Group disabled>
                 <Radio value="JSON">JSON</Radio>
                 <Radio value="XML">XML</Radio>
@@ -114,6 +123,7 @@ const DataApplyModal: FC<Props> = ({ visible, item, onClose, onSave }) => {
           pagination={false}
           scroll={{ y: 300 }}
           bordered
+          loading={spinning}
         />
       </Form>
     </Modal>

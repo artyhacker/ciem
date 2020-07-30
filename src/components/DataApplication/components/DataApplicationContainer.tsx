@@ -133,7 +133,7 @@ const DataApplicationContainer: FC = () => {
         </div>
       </div>
       <MyDataDescModal visible={descVisible} item={descItem} onClose={onCloseDesc} />
-      <DataApplyModal visible={applyVisible} item={applyItem} onClose={onCloseApply} onSave={fetchApply} />
+      <DataApplyModal visible={applyVisible} item={applyItem} onClose={onCloseApply} onSave={fetchApply} spinning={spinning} />
     </div>
   );
 };
