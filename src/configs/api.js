@@ -22,6 +22,7 @@ const api = {
   user: '/user',
   dict: '/dicts',
   data: '/data',
+  apply: '/apply',
 };
 
 export default api;

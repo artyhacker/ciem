@@ -7,6 +7,10 @@ export type DataApplicationType = {
   dataDescribe: string;
   dataUploader: string;
   rejectText: string;
+  requestFields: string[];
+  responseFields: string[];
+  status: number;
+  dataId: string;
 };
 
 export type DataApplicationSearchType = {

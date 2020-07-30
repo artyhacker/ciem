@@ -4,16 +4,18 @@ import { Modal, Row, Col, Form, Input, Table, Checkbox, Radio } from "antd";
 import { DataMapType } from '../../../models/data';
 import { useForm } from "antd/es/form/Form";
 import getUserInfo from "../../../utils/getUserInfo";
+import { DataApplicationType } from "../../../models/dataApplication";
 
 interface Props {
   visible: boolean;
   item: DataType | undefined;
   onClose: () => void;
+  onSave: (item: DataApplicationType) => void;
 }
 
 type KeyMap = { [key: string]: boolean };
 
-const DataApplyModal: FC<Props> = ({ visible, item, onClose }) => {
+const DataApplyModal: FC<Props> = ({ visible, item, onClose, onSave }) => {
   const [form] = useForm();
 
   const [reqMap, setReqMap] = useState<KeyMap>({});
@@ -48,8 +50,9 @@ const DataApplyModal: FC<Props> = ({ visible, item, onClose }) => {
       .then((values) => {
         const requestFields = Object.keys(reqMap);
         const responseFields = Object.keys(resMap);
-        const applicant = getUserInfo().name;
-        console.log({ ...values, requestFields, responseFields, status: 0, applicant, dataId: item?.id });
+        const applicant = getUserInfo().name as string; 
+        const resData = { ...values, requestFields, responseFields, status: 0, applicant, dataId: item?.id || '' };
+        onSave(resData as DataApplicationType);
       })
       .catch(e => {
         console.log(e);

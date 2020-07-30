@@ -5,8 +5,10 @@ import DataTypeTree from "../../DataRegister/components/DataTypeTree";
 import DataApplicationTable from "./DataApplicationTable";
 import { MyDataType, DataType } from "../../../models/data";
 import MyDataDescModal from "./DataApplicationDescModal";
-import { fetchData, fetchDataItem } from "../actions";
+import { fetchData, fetchDataItem, fetchPostApply } from "../actions";
 import DataApplyModal from './DataApplyModal';
+import { DataApplicationType } from "../../../models/dataApplication";
+import { message } from "antd";
 
 export type DataSearchType = {
   name?: string;
@@ -104,6 +106,16 @@ const DataApplicationContainer: FC = () => {
     setApplyItem(undefined);
   }, []);
 
+  const fetchApply = useCallback((item: DataApplicationType) => {
+    setSpinning(true);
+    const cb = () => {
+      setSpinning(false);
+      onCloseApply();
+      message.success('申请成功');
+    };
+    fetchPostApply(item, cb);
+  }, [onCloseApply]);
+
   return (
     <div className={styles.container}>
       <MyDataSearch
@@ -121,7 +133,7 @@ const DataApplicationContainer: FC = () => {
         </div>
       </div>
       <MyDataDescModal visible={descVisible} item={descItem} onClose={onCloseDesc} />
-      <DataApplyModal visible={applyVisible} item={applyItem} onClose={onCloseApply} />
+      <DataApplyModal visible={applyVisible} item={applyItem} onClose={onCloseApply} onSave={fetchApply} />
     </div>
   );
 };
