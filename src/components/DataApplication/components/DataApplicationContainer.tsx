@@ -2,10 +2,11 @@ import React, { FC, useState, useEffect, useCallback } from "react";
 import styles from "../../styles.module.css";
 import MyDataSearch from "./DataApplicationSearch";
 import DataTypeTree from "../../DataRegister/components/DataTypeTree";
-import MyDataTable from "./DataApplicationTable";
+import DataApplicationTable from "./DataApplicationTable";
 import { MyDataType, DataType } from "../../../models/data";
 import MyDataDescModal from "./DataApplicationDescModal";
 import { fetchData, fetchDataItem } from "../actions";
+import DataApplyModal from './DataApplyModal';
 
 export type DataSearchType = {
   name?: string;
@@ -21,6 +22,11 @@ const DataApplicationContainer: FC = () => {
 
   const [descVisible, setDescVisible] = useState(false);
   const [descItem, setDescItem] = useState<DataType>();
+
+  const [applyVisible, setApplyVisible] = useState(false);
+  const [applyItem, setApplyItem] = useState<DataType>();
+
+  const [spinning, setSpinning] = useState(false);
 
   useEffect(() => {
     const cb = (value: MyDataType[]) => {
@@ -69,9 +75,11 @@ const DataApplicationContainer: FC = () => {
   }, [onSearch]);
 
   const onDesc = useCallback((item: MyDataType) => {
+    setSpinning(true);
     const cb = (resData: DataType) => {
       setDescItem(resData);
       setDescVisible(true);
+      setSpinning(false);
     };
     fetchDataItem(item, cb);
   }, []);
@@ -82,7 +90,18 @@ const DataApplicationContainer: FC = () => {
   }, []);
 
   const onApply = useCallback((item: MyDataType) => {
-    console.log(item);
+    setSpinning(true);
+    const cb = (resData: DataType) => {
+      setApplyItem(resData);
+      setApplyVisible(true);
+      setSpinning(false);
+    };
+    fetchDataItem(item, cb);
+  }, []);
+
+  const onCloseApply = useCallback(() => {
+    setApplyVisible(false);
+    setApplyItem(undefined);
   }, []);
 
   return (
@@ -98,10 +117,11 @@ const DataApplicationContainer: FC = () => {
           <DataTypeTree selectedKey={type} onSelect={onSelectType} />
         </div>
         <div className={styles.right}>
-          <MyDataTable dataSource={dataSource} onDesc={onDesc} onApply={onApply} />
+          <DataApplicationTable dataSource={dataSource} onDesc={onDesc} onApply={onApply} spinning={spinning} />
         </div>
       </div>
       <MyDataDescModal visible={descVisible} item={descItem} onClose={onCloseDesc} />
+      <DataApplyModal visible={applyVisible} item={applyItem} onClose={onCloseApply} />
     </div>
   );
 };
