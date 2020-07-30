@@ -22,6 +22,8 @@ const MyDataContainer: FC = () => {
   const [descVisible, setDescVisible] = useState(false);
   const [descItem, setDescItem] = useState<DataType>();
 
+  const [spinning, setSpinning] = useState(false);
+
   useEffect(() => {
     const cb = (value: MyDataType[]) => {
       setList(value);
@@ -63,9 +65,11 @@ const MyDataContainer: FC = () => {
   }, [onSearch]);
 
   const onDesc = useCallback((item: MyDataType) => {
+    setSpinning(true);
     const cb = (resData: DataType) => {
       setDescItem(resData);
       setDescVisible(true);
+      setSpinning(false);
     };
     fetchMyDataItem(item, cb);
   }, []);
@@ -97,7 +101,7 @@ const MyDataContainer: FC = () => {
           <DataTypeTree selectedKey={type} onSelect={onSelectType} />
         </div>
         <div className={styles.right}>
-          <MyDataTable dataSource={dataSource} onDesc={onDesc} onDel={onDel} />
+          <MyDataTable dataSource={dataSource} onDesc={onDesc} onDel={onDel} spinning={spinning} />
         </div>
       </div>
       <MyDataDescModal visible={descVisible} item={descItem} onClose={onCloseDesc} />

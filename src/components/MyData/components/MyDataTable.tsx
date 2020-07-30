@@ -12,9 +12,10 @@ interface Props {
   dataSource: MyDataType[];
   onDesc: (item: MyDataType) => void;
   onDel: (item: MyDataType) => void;
+  spinning: boolean;
 }
 
-const MyDataTable: FC<Props> = ({ dataSource, onDesc, onDel }) => {
+const MyDataTable: FC<Props> = ({ dataSource, onDesc, onDel, spinning }) => {
   const columns = useMemo(
     () => [
       { title: "数据名称", dataIndex: "name", width: "35%" },
@@ -61,6 +62,7 @@ const MyDataTable: FC<Props> = ({ dataSource, onDesc, onDel }) => {
       rowKey="id"
       pagination={false}
       size="small"
+      loading={spinning}
     />
   );
 };
