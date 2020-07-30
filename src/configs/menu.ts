@@ -3,6 +3,7 @@ import Dict from '../components/Dict';
 import DataRegister from '../components/DataRegister';
 import MyData from '../components/MyData';
 import DataApplication from '../components/DataApplication';
+import MyApplication from '../components/MyApplication';
 
 export type MenuItemType = {
   path: string;
@@ -39,7 +40,7 @@ const menuConfig: MenuItemType[] = [
   {
     path: '/my-apply',
     label: '我的申请',
-    component: Empty,
+    component: MyApplication,
     auth: 0,
   },
   {
