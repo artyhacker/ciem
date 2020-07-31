@@ -2,6 +2,7 @@ export type DataMapType = {
   id: string;
   name: string;
   dictId: string;
+  dictName: string;
 };
 
 export type ExcelDataType = { [key: string ]: string };

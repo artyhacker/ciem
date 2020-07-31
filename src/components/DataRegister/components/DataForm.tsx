@@ -34,7 +34,7 @@ const fileNameStyle = {
 
 const getId = (location: Location): string => location.search.slice(4);
 const getDataMap = (
-  sourceData: { id: string; name: string; dictId: string }[]
+  sourceData: { id: string; name: string; dictId: string, dictName: string }[]
 ): DataMapType => {
   const result: DataMapType = {};
   sourceData.forEach((s) => {
@@ -43,7 +43,7 @@ const getDataMap = (
   return result;
 };
 
-export type DataMapType = { [key: string]: { id: string; name: string } };
+export type DataMapType = { [key: string]: { id: string; name: string, dictId: string, dictName: string } };
 
 const DataForm: FC<Props> = ({ onRegister, location, setType }) => {
   const [dataMap, setDataMap] = useState<DataMapType>({});
@@ -72,10 +72,7 @@ const DataForm: FC<Props> = ({ onRegister, location, setType }) => {
 
   const onSave = useCallback(() => {
     setSpinning(true);
-    let postDataMap = Object.keys(dataMap).map((key) => ({
-      dictId: key,
-      ...dataMap[key],
-    }));
+    let postDataMap = Object.keys(dataMap).map((key) => (dataMap[key]));
     postDataMap = postDataMap.filter((pf) => !!pf.id || !!pf.name);
     const postData = {
       ...item,

@@ -60,7 +60,7 @@ const DataDictMap: FC<Props> = ({ dataMap, setDataMap }) => {
                 e.persist();
                 setDataMap((prev) => ({
                   ...prev,
-                  [r.id]: { name: value.name, id: e.target.value },
+                  [r.id]: { name: value.name, dictId: r.id, dictName: r.name, id: e.target.value },
                 }));
               }}
             />
@@ -81,7 +81,7 @@ const DataDictMap: FC<Props> = ({ dataMap, setDataMap }) => {
                 e.persist();
                 setDataMap((prev) => ({
                   ...prev,
-                  [r.id]: { id: value.id, name: e.target.value },
+                  [r.id]: { id: value.id, dictId: r.id, dictName: r.name, name: e.target.value },
                 }));
               }}
             />
