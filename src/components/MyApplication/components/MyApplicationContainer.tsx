@@ -85,7 +85,8 @@ const MyApplicationContainer: FC = () => {
       <div className={styles.table}>
         <MyApplicationTable
           dataSource={showList}
-          onApply={() => { }}
+          onDel={() => { }}
+          onEdit={() => { }}
           onDesc={() => { }}
           spinning={spinning}
         />

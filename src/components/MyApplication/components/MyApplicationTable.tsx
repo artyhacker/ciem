@@ -1,19 +1,21 @@
 import React, { FC, useMemo } from "react";
-import { Table, Button } from "antd";
+import { Table, Button, Popconfirm } from "antd";
 import {
   EllipsisOutlined,
-  FileDoneOutlined,
+  EditOutlined,
+  DeleteOutlined,
 } from "@ant-design/icons";
 import { MyApplicationType } from "../../../models/dataApplication";
 
 interface Props {
   dataSource: MyApplicationType[];
   onDesc: (item: MyApplicationType) => void;
-  onApply: (item: MyApplicationType) => void;
+  onEdit: (item: MyApplicationType) => void;
+  onDel: (item: MyApplicationType) => void;
   spinning: boolean;
 }
 
-const MyApplicationTable: FC<Props> = ({ dataSource, onDesc, onApply, spinning }) => {
+const MyApplicationTable: FC<Props> = ({ dataSource, onDesc, onEdit, onDel, spinning }) => {
   const columns = useMemo(
     () => [
       { title: "申请名称", dataIndex: "name", width: "16%" },
@@ -34,14 +36,28 @@ const MyApplicationTable: FC<Props> = ({ dataSource, onDesc, onApply, spinning }
             >
               详情 <EllipsisOutlined />
             </Button>
-            <Button size="small" style={{ color: "#1890FF", margin: '0 .5rem' }} title="申请" onClick={() => onApply(r)}>
-              申请 <FileDoneOutlined />
+            <Button
+              size="small"
+              style={{ color: "#1890FF", margin: '0 .5rem' }}
+              title="编辑"
+              onClick={() => onEdit(r)}
+            >
+              编辑 <EditOutlined />
             </Button>
+            <Popconfirm title="确认删除?" onConfirm={() => onDel(r)}>
+            <Button
+              size="small"
+              style={{ color: "#1890FF" }}
+              title="删除"
+            >
+              删除 <DeleteOutlined />
+            </Button>
+            </Popconfirm>
           </>
         ),
       },
     ],
-    [onDesc, onApply]
+    [onDesc, onEdit, onDel]
   );
 
   return (
