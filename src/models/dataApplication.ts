@@ -1,3 +1,5 @@
+import { DataMapType } from "./data";
+
 export type DataApplicationType = {
   id?: string;
   name: string;
@@ -7,8 +9,8 @@ export type DataApplicationType = {
   dataDescribe: string;
   dataUploader: string;
   rejectText: string;
-  requestFields: string[];
-  responseFields: string[];
+  requestFields: DataMapType[];
+  responseFields: DataMapType[];
   status: ApplicationStatusType;
   dataId: string;
 };
