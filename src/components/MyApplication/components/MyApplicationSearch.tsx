@@ -1,12 +1,12 @@
 import React, { FC, Dispatch, SetStateAction } from "react";
 import { Row, Col, Input, Button } from "antd";
 import { SearchOutlined, ReloadOutlined } from "@ant-design/icons";
-import { DataSearchType } from "../../DataApplication/components/DataApplicationContainer";
+import { MyApplicationSearchType } from "../../../models/dataApplication";
 
 interface Props {
-  params: DataSearchType;
-  setParams: Dispatch<SetStateAction<DataSearchType>>;
-  onSearch: (params: DataSearchType) => void;
+  params: MyApplicationSearchType;
+  setParams: Dispatch<SetStateAction<MyApplicationSearchType>>;
+  onSearch: (params: MyApplicationSearchType) => void;
   onReset: () => void;
 }
 
@@ -36,10 +36,10 @@ const MyApplicationSearch: FC<Props> = ({ params, setParams, onSearch, onReset }
       <Col span={4}>
         <Input
           placeholder="数据提供方"
-          value={params.uploader}
+          value={params.dataUploader}
           onChange={(e) => {
             e.persist();
-            setParams((prev) => ({ ...prev, uploader: e.target.value }));
+            setParams((prev) => ({ ...prev, dataUploader: e.target.value }));
           }}
         />
       </Col>

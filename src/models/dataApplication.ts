@@ -33,3 +33,9 @@ export type MyApplicationType = {
   rejectText: string;
   status: ApplicationStatusType;
 }
+
+export type MyApplicationSearchType = {
+  name?: string;
+  describe?: string;
+  dataUploader?: string;
+}
