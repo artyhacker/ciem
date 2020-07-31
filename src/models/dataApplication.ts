@@ -1,4 +1,4 @@
-import { DataMapType } from "./data";
+import { DataMapType, DataType } from "./data";
 
 export type DataApplicationType = {
   id?: string;
@@ -40,4 +40,19 @@ export type MyApplicationSearchType = {
   name?: string;
   describe?: string;
   dataUploader?: string;
+}
+
+export type MyApplicationDescType = {
+  id: string;
+  name: string;
+  describe: string;
+  ip: string;
+  port: string;
+  apiType: string;
+  status: ApplicationStatusType;
+  applicant: string;
+  rejectText?: string;
+  data: DataType;
+  requestFields: DataMapType[];
+  responseFields: DataMapType[];
 }

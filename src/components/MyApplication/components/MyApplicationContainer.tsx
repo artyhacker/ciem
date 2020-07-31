@@ -7,8 +7,10 @@ import {
   MyApplicationType,
   ApplicationStatusTypeStr,
   MyApplicationSearchType,
+  MyApplicationDescType,
 } from "../../../models/dataApplication";
 import * as actions from "../actions";
+import MyApplicationDescModal from "./MyApplicationDescModal";
 
 const MyApplicationContainer: FC = () => {
   const [list, setList] = useState<MyApplicationType[]>([]);
@@ -16,6 +18,9 @@ const MyApplicationContainer: FC = () => {
   const [tabKey, setTabKey] = useState<ApplicationStatusTypeStr>("0");
   const [spinning, setSpinning] = useState(false);
   const [params, setParams] = useState<MyApplicationSearchType>({});
+
+  const [descVisible, setDescVisible] = useState(false);
+  const [descItem, setDescItem] = useState<MyApplicationDescType>();
 
   useEffect(() => {
     setSpinning(true);
@@ -72,6 +77,19 @@ const MyApplicationContainer: FC = () => {
     [params, onSearch],
   );
 
+  const onDesc = useCallback((item: MyApplicationType) => {
+    const cb = (resData: MyApplicationDescType) => {
+      setDescItem(resData);
+      setDescVisible(true);
+    }
+    actions.fetchItem(item, cb);
+  }, []);
+
+  const onCloseDesc = useCallback(() => {
+    setDescItem(undefined);
+    setDescVisible(false);
+  }, []);
+
   const c = useMemo(() => (
     <div className={styles.component}>
       <div>
@@ -87,12 +105,12 @@ const MyApplicationContainer: FC = () => {
           dataSource={showList}
           onDel={() => { }}
           onEdit={() => { }}
-          onDesc={() => { }}
+          onDesc={onDesc}
           spinning={spinning}
         />
       </div>
     </div>
-  ), [showList, onSearch, onReset, spinning, params]);
+  ), [showList, onSearch, onReset, spinning, params, onDesc]);
 
   return (
     <div className={styles.container}>
@@ -113,6 +131,7 @@ const MyApplicationContainer: FC = () => {
           {c}
         </Tabs.TabPane>
       </Tabs>
+      <MyApplicationDescModal visible={descVisible} item={descItem} onClose={onCloseDesc} />
     </div>
   );
 };
