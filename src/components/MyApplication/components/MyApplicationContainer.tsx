@@ -78,9 +78,11 @@ const MyApplicationContainer: FC = () => {
   );
 
   const onDesc = useCallback((item: MyApplicationType) => {
+    setSpinning(true);
     const cb = (resData: MyApplicationDescType) => {
       setDescItem(resData);
       setDescVisible(true);
+      setSpinning(false);
     }
     actions.fetchItem(item, cb);
   }, []);
