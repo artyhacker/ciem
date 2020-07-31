@@ -29,8 +29,8 @@ const DataApplyModal: FC<Props> = ({ visible, item, onClose, onSave, spinning })
   }, [form, visible]);
 
   const columns = [
-    { title: "CIEM数据元字典标识符", dataIndex: "id", width: '40%' },
-    { title: "CIEM数据元字典中文名称", dataIndex: "name", width: '40%' },
+    { title: "CIEM数据元字典标识符", dataIndex: "dictId", width: '40%' },
+    { title: "CIEM数据元字典中文名称", dataIndex: "dictName", width: '40%' },
     {
       title: '请求包',
       dataIndex: 'requestFields',
