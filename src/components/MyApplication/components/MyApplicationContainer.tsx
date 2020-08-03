@@ -8,10 +8,11 @@ import {
   ApplicationStatusTypeStr,
   MyApplicationSearchType,
   MyApplicationDescType,
+  DataApplicationType,
 } from "../../../models/dataApplication";
 import * as actions from "../actions";
 import MyApplicationDescModal from "./MyApplicationDescModal";
-import { previewImage } from "antd/lib/upload/utils";
+import DataApplyModal from "../../DataApplication/components/DataApplyModal";
 
 const MyApplicationContainer: FC = () => {
   const [list, setList] = useState<MyApplicationType[]>([]);
@@ -22,6 +23,9 @@ const MyApplicationContainer: FC = () => {
 
   const [descVisible, setDescVisible] = useState(false);
   const [descItem, setDescItem] = useState<MyApplicationDescType>();
+
+  const [editVisible, setEditVisible] = useState(false);
+  const [editItem, setEditItem] = useState<MyApplicationDescType>();
 
   useEffect(() => {
     setSpinning(true);
@@ -101,6 +105,39 @@ const MyApplicationContainer: FC = () => {
     actions.fetchDel(item, cb);
   }, []);
 
+  const onEdit = useCallback((item: MyApplicationType) => {
+    setSpinning(true);
+    const cb = (resData: MyApplicationDescType) => {
+      setEditItem(resData);
+      setEditVisible(true);
+      setSpinning(false);
+    }
+    actions.fetchItem(item, cb);
+  }, []);
+
+  const cancelEdit = useCallback(() => {
+    setEditItem(undefined);
+    setEditVisible(false);
+  }, []);
+
+  const fetchEdit = useCallback((item: DataApplicationType) => {
+    setSpinning(true);
+    const cb = (resData: MyApplicationType) => {
+      setList(prev => prev.map(pm => {
+        if (pm.id === resData.id) return resData;
+        return pm;
+      }));
+      setShowList(prev => prev.map(pm => {
+        if (pm.id === resData.id) return resData;
+        return pm;
+      }));
+      setEditItem(undefined);
+      setEditVisible(false);
+      setSpinning(false);
+    }
+    actions.fetchEdit(item, cb);
+  }, []);
+
   const c = useMemo(() => (
     <div className={styles.component}>
       <div>
@@ -115,13 +152,13 @@ const MyApplicationContainer: FC = () => {
         <MyApplicationTable
           dataSource={showList}
           onDel={onDel}
-          onEdit={() => { }}
+          onEdit={onEdit}
           onDesc={onDesc}
           spinning={spinning}
         />
       </div>
     </div>
-  ), [showList, onSearch, onReset, spinning, params, onDesc, onDel]);
+  ), [showList, onSearch, onReset, spinning, params, onDesc, onDel, onEdit]);
 
   return (
     <div className={styles.container}>
@@ -143,6 +180,14 @@ const MyApplicationContainer: FC = () => {
         </Tabs.TabPane>
       </Tabs>
       <MyApplicationDescModal visible={descVisible} item={descItem} onClose={onCloseDesc} />
+      <DataApplyModal
+        visible={editVisible}
+        item={editItem?.data || undefined}
+        applyItem={editItem}
+        spinning={spinning}
+        onClose={cancelEdit}
+        onSave={fetchEdit}
+      />
     </div>
   );
 };

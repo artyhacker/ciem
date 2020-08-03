@@ -4,7 +4,7 @@ import { Modal, Row, Col, Form, Input, Table, Checkbox, Radio, message } from "a
 import { DataMapType } from '../../../models/data';
 import { useForm } from "antd/es/form/Form";
 import getUserInfo from "../../../utils/getUserInfo";
-import { DataApplicationType } from "../../../models/dataApplication";
+import { DataApplicationType, MyApplicationDescType } from "../../../models/dataApplication";
 
 interface Props {
   visible: boolean;
@@ -12,11 +12,12 @@ interface Props {
   onClose: () => void;
   onSave: (item: DataApplicationType) => void;
   spinning: boolean;
+  applyItem?: MyApplicationDescType;
 }
 
 type KeyMap = { [key: string]: boolean };
 
-const DataApplyModal: FC<Props> = ({ visible, item, onClose, onSave, spinning }) => {
+const DataApplyModal: FC<Props> = ({ visible, item, onClose, onSave, spinning, applyItem }) => {
   const [form] = useForm();
 
   const [reqMap, setReqMap] = useState<KeyMap>({});
@@ -27,6 +28,24 @@ const DataApplyModal: FC<Props> = ({ visible, item, onClose, onSave, spinning })
       form.setFieldsValue({ apiType: 'JSON' });
     }
   }, [form, visible]);
+
+  useEffect(() => {
+    if (form && applyItem && visible) {
+      console.log(applyItem);
+      form.setFieldsValue({
+        apiType: 'JSON',
+        name: applyItem.name,
+        describe: applyItem.describe,
+        ip: applyItem.ip,
+        port: applyItem.port,
+        id: applyItem.id,
+      });
+      const newReqMap: KeyMap = {};
+      const newResMap: KeyMap = {};
+      applyItem.requestFields.forEach(req => (newReqMap[req.id] = true));
+      applyItem.responseFields.forEach(res => (newResMap[res.id] = true));
+    }
+  }, [applyItem, visible, form]);
 
   const columns = [
     { title: "CIEM数据元字典标识符", dataIndex: "dictId", width: '40%' },
@@ -49,6 +68,7 @@ const DataApplyModal: FC<Props> = ({ visible, item, onClose, onSave, spinning })
   const onOk = () => {
     form.validateFields()
       .then((values) => {
+        console.log(values);
         const requestFields = Object.keys(reqMap).map(k => dataSource.find(df => df.id === k));
         const responseFields = Object.keys(resMap).map(k => dataSource.find(df => df.id === k));
         if (!requestFields.length) {
@@ -115,6 +135,9 @@ const DataApplyModal: FC<Props> = ({ visible, item, onClose, onSave, spinning })
             </Form.Item>
           </Col>
         </Row>
+        <Form.Item label="ID" name="id" style={{ display: 'none' }}>
+          <Input />
+        </Form.Item>
         <Table
           rowKey="id"
           columns={columns}
