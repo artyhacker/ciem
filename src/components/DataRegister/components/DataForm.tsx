@@ -17,7 +17,12 @@ import { withRouter, RouteComponentProps } from "react-router-dom";
 import { Location } from "history";
 
 interface Props extends RouteComponentProps {
-  onRegister: (data: DataType, cb: CallbackType, isEdit: boolean, errCb: () => void) => void;
+  onRegister: (
+    data: DataType,
+    cb: CallbackType,
+    isEdit: boolean,
+    errCb: () => void
+  ) => void;
   setType: (type: string) => void;
 }
 
@@ -34,7 +39,7 @@ const fileNameStyle = {
 
 const getId = (location: Location): string => location.search.slice(4);
 const getDataMap = (
-  sourceData: { id: string; name: string; dictId: string, dictName: string }[]
+  sourceData: { id: string; name: string; dictId: string; dictName: string }[]
 ): DataMapType => {
   const result: DataMapType = {};
   sourceData.forEach((s) => {
@@ -43,9 +48,11 @@ const getDataMap = (
   return result;
 };
 
-export type DataMapType = { [key: string]: { id: string; name: string, dictId: string, dictName: string } };
+export type DataMapType = {
+  [key: string]: { id: string; name: string; dictId: string; dictName: string };
+};
 
-const DataForm: FC<Props> = ({ onRegister, location, setType }) => {
+const DataForm: FC<Props> = ({ onRegister, location, setType, history }) => {
   const [dataMap, setDataMap] = useState<DataMapType>({});
   const [item, setItem] = useState<DataType>(DEFAULT_DATA);
   const [isEdit, setIsEdit] = useState(false);
@@ -71,7 +78,7 @@ const DataForm: FC<Props> = ({ onRegister, location, setType }) => {
   }, []);
 
   const onSave = useCallback(() => {
-    let postDataMap = Object.keys(dataMap).map((key) => (dataMap[key]));
+    let postDataMap = Object.keys(dataMap).map((key) => dataMap[key]);
     postDataMap = postDataMap.filter((pf) => !!pf.id || !!pf.name);
     const postData = {
       ...item,
@@ -79,11 +86,16 @@ const DataForm: FC<Props> = ({ onRegister, location, setType }) => {
     };
     if (validateForm(postData, isEdit)) {
       setSpinning(true);
-      onRegister(postData, () => {
-        onReset();
-        message.success(isEdit ? "编辑成功" : "注册成功");
-        setSpinning(false);
-      }, isEdit, () => setSpinning(false));
+      onRegister(
+        postData,
+        () => {
+          onReset();
+          message.success(isEdit ? "编辑成功" : "注册成功");
+          setSpinning(false);
+        },
+        isEdit,
+        () => setSpinning(false)
+      );
     }
   }, [item, dataMap, onRegister, onReset, isEdit]);
 
@@ -109,6 +121,10 @@ const DataForm: FC<Props> = ({ onRegister, location, setType }) => {
     }
     return false;
   };
+
+  const cancelEdit = useCallback(() => {
+    history.push("/my-data");
+  }, [history]);
 
   return (
     <div className={styles.right}>
@@ -183,10 +199,17 @@ const DataForm: FC<Props> = ({ onRegister, location, setType }) => {
         >
           <SaveOutlined /> 确认
         </Button>
-        <Button onClick={onReset} title="重置填写内容">
-          <ReloadOutlined />
-          重置
-        </Button>
+        {isEdit ? (
+          <Button onClick={cancelEdit} title="取消编辑">
+            <ReloadOutlined />
+            取消
+          </Button>
+        ) : (
+          <Button onClick={onReset} title="重置填写内容">
+            <ReloadOutlined />
+            重置
+          </Button>
+        )}
       </div>
     </div>
   );
