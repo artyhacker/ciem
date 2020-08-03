@@ -1,6 +1,6 @@
 import React, { useState, useEffect, FC, useCallback, useMemo } from "react";
 import styles from "./styles.module.css";
-import { Tabs } from "antd";
+import { Tabs, message } from "antd";
 import MyApplicationSearch from "./MyApplicationSearch";
 import MyApplicationTable from "./MyApplicationTable";
 import {
@@ -101,6 +101,7 @@ const MyApplicationContainer: FC = () => {
     const cb = () => {
       setList(prev => prev.filter(l => l.id !== item.id));
       setShowList(prev => prev.filter(l => l.id !== item.id));
+      message.success('删除成功');
     };
     actions.fetchDel(item, cb);
   }, []);
@@ -129,6 +130,7 @@ const MyApplicationContainer: FC = () => {
         setShowList(resData.filter(rf => rf.status.toString() === tabKey));
         setEditItem(undefined);
         setEditVisible(false);
+        message.success('编辑成功');
       };
       actions.fetchList(cb1);
     }
