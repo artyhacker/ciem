@@ -1,6 +1,6 @@
 {
   "name": "ciem",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
@@ -58,5 +58,5 @@
       "commit-msg": "commitlint -x @commitlint/config-conventional -E HUSKY_GIT_PARAMS"
     }
   },
-  "proxy": "http://192.168.2.72:8090"
+  "proxy": "http://localhost:5000/mock/33/ciem"
 }
