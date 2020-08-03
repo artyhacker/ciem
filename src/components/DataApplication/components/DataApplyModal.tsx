@@ -31,7 +31,6 @@ const DataApplyModal: FC<Props> = ({ visible, item, onClose, onSave, spinning, a
 
   useEffect(() => {
     if (form && applyItem && visible) {
-      console.log(applyItem);
       form.setFieldsValue({
         apiType: 'JSON',
         name: applyItem.name,
@@ -70,9 +69,8 @@ const DataApplyModal: FC<Props> = ({ visible, item, onClose, onSave, spinning, a
   const onOk = () => {
     form.validateFields()
       .then((values) => {
-        console.log(values);
-        const requestFields = Object.keys(reqMap).map(k => dataSource.find(df => df.id === k));
-        const responseFields = Object.keys(resMap).map(k => dataSource.find(df => df.id === k));
+        const requestFields = Object.keys(reqMap).filter(k => reqMap[k]).map(k => dataSource.find(df => df.id === k));
+        const responseFields = Object.keys(resMap).filter(k => resMap[k]).map(k => dataSource.find(df => df.id === k));
         if (!requestFields.length) {
           message.info('未选择请求包');
           return;
