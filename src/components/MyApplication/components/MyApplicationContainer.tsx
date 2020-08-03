@@ -122,21 +122,18 @@ const MyApplicationContainer: FC = () => {
 
   const fetchEdit = useCallback((item: DataApplicationType) => {
     setSpinning(true);
-    const cb = (resData: MyApplicationType) => {
-      setList(prev => prev.map(pm => {
-        if (pm.id === resData.id) return resData;
-        return pm;
-      }));
-      setShowList(prev => prev.map(pm => {
-        if (pm.id === resData.id) return resData;
-        return pm;
-      }));
-      setEditItem(undefined);
-      setEditVisible(false);
-      setSpinning(false);
+    const cb = () => {
+      const cb1 = (resData: MyApplicationType[]) => {
+        setSpinning(false);
+        setList(resData);
+        setShowList(resData.filter(rf => rf.status.toString() === tabKey));
+        setEditItem(undefined);
+        setEditVisible(false);
+      };
+      actions.fetchList(cb1);
     }
     actions.fetchEdit(item, cb);
-  }, []);
+  }, [tabKey]);
 
   const c = useMemo(() => (
     <div className={styles.component}>
