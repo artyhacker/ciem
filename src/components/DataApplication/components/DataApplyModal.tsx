@@ -44,6 +44,8 @@ const DataApplyModal: FC<Props> = ({ visible, item, onClose, onSave, spinning, a
       const newResMap: KeyMap = {};
       applyItem.requestFields.forEach(req => (newReqMap[req.id] = true));
       applyItem.responseFields.forEach(res => (newResMap[res.id] = true));
+      setReqMap(newReqMap);
+      setResMap(newResMap);
     }
   }, [applyItem, visible, form]);
 
