@@ -71,7 +71,6 @@ const DataForm: FC<Props> = ({ onRegister, location, setType }) => {
   }, []);
 
   const onSave = useCallback(() => {
-    setSpinning(true);
     let postDataMap = Object.keys(dataMap).map((key) => (dataMap[key]));
     postDataMap = postDataMap.filter((pf) => !!pf.id || !!pf.name);
     const postData = {
@@ -79,6 +78,7 @@ const DataForm: FC<Props> = ({ onRegister, location, setType }) => {
       dataMap: postDataMap,
     };
     if (validateForm(postData, isEdit)) {
+      setSpinning(true);
       onRegister(postData, () => {
         onReset();
         message.success(isEdit ? "编辑成功" : "注册成功");
