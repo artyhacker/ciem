@@ -11,6 +11,7 @@ import {
 } from "../../../models/dataApplication";
 import * as actions from "../actions";
 import MyApplicationDescModal from "./MyApplicationDescModal";
+import { previewImage } from "antd/lib/upload/utils";
 
 const MyApplicationContainer: FC = () => {
   const [list, setList] = useState<MyApplicationType[]>([]);
@@ -92,6 +93,14 @@ const MyApplicationContainer: FC = () => {
     setDescVisible(false);
   }, []);
 
+  const onDel = useCallback((item: MyApplicationType) => {
+    const cb = () => {
+      setList(prev => prev.filter(l => l.id !== item.id));
+      setShowList(prev => prev.filter(l => l.id !== item.id));
+    };
+    actions.fetchDel(item, cb);
+  }, []);
+
   const c = useMemo(() => (
     <div className={styles.component}>
       <div>
@@ -105,14 +114,14 @@ const MyApplicationContainer: FC = () => {
       <div className={styles.table}>
         <MyApplicationTable
           dataSource={showList}
-          onDel={() => { }}
+          onDel={onDel}
           onEdit={() => { }}
           onDesc={onDesc}
           spinning={spinning}
         />
       </div>
     </div>
-  ), [showList, onSearch, onReset, spinning, params, onDesc]);
+  ), [showList, onSearch, onReset, spinning, params, onDesc, onDel]);
 
   return (
     <div className={styles.container}>
