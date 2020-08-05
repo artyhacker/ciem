@@ -157,7 +157,7 @@ const MyApplicationDescModal: FC<Props> = ({ visible, item, onClose }) => {
         dataSource={dataSource}
         size="small"
         pagination={false}
-        scroll={{ y: 280 }}
+        scroll={{ y: 260 }}
         bordered
       />
       {getApiDataView()}
