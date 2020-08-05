@@ -1,6 +1,8 @@
 import React, { FC, useCallback, useMemo } from "react";
 import { Modal, Row, Col, Table, Checkbox, Divider } from "antd";
 import ReactJson from "react-json-view";
+// @ts-ignore
+import XMLViewer from "react-xml-viewer";
 import { DataMapType, DataType } from "../../../models/data";
 import { MyApplicationDescType } from "../../../models/dataApplication";
 
@@ -15,6 +17,11 @@ type KeyMap = { [key: string]: boolean };
 interface TableDataType extends DataMapType {
   isReq?: boolean;
   isRes?: boolean;
+}
+
+const XMLViewTheme = {
+  "attributeKeyColor": "#FF0000",
+  "attributeValueColor": "#000FF"
 }
 
 const MyApplicationDescModal: FC<Props> = ({ visible, item, onClose }) => {
@@ -81,6 +88,16 @@ const MyApplicationDescModal: FC<Props> = ({ visible, item, onClose }) => {
           <Divider>API接口预览</Divider>
           <div style={{ maxHeight: '20rem', overflow: 'auto' }}>
             <ReactJson src={JSON.parse(item.dataApi)} name={false} />
+          </div>
+        </>
+      );
+    }
+    if (item && item.apiType === "XML" && item.dataApi && item.dataApi[0] === '<') {
+      return (
+        <>
+          <Divider>API接口预览</Divider>
+          <div style={{ maxHeight: '20rem', overflow: 'auto' }}>
+            <XMLViewer xml={item.dataApi} theme={XMLViewTheme} />
           </div>
         </>
       );
