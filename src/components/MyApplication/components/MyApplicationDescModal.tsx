@@ -94,6 +94,7 @@ const MyApplicationDescModal: FC<Props> = ({ visible, item, onClose }) => {
         <Col span={12}>{getFieldItem("协议类型", "HTTP")}</Col>
         <Col span={12}>{getFieldItem("请求方式", "POST")}</Col>
         <Col span={12}>{getFieldItem("接口形式", getValue("apiType"))}</Col>
+        <Col span={12} style={{ display: item && item.status === -1 ? '' : 'none' }}>{getFieldItem("驳回原因", getValue("rejectText"))}</Col>
       </Row>
       <Table
         rowKey="id"

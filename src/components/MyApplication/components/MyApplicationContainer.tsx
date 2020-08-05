@@ -9,6 +9,7 @@ import {
   MyApplicationSearchType,
   MyApplicationDescType,
   DataApplicationType,
+  ApplicationStatusType,
 } from "../../../models/dataApplication";
 import * as actions from "../actions";
 import MyApplicationDescModal from "./MyApplicationDescModal";
@@ -154,10 +155,12 @@ const MyApplicationContainer: FC = () => {
           onEdit={onEdit}
           onDesc={onDesc}
           spinning={spinning}
+          status={Number(tabKey) as ApplicationStatusType}
+          onDownload={(r: MyApplicationType) => console.log(r)}
         />
       </div>
     </div>
-  ), [showList, onSearch, onReset, spinning, params, onDesc, onDel, onEdit]);
+  ), [showList, onSearch, onReset, spinning, params, onDesc, onDel, onEdit, tabKey]);
 
   return (
     <div className={styles.container}>
