@@ -128,7 +128,7 @@ const DataApplyModal: FC<Props> = ({ visible, item, onClose, onSave, spinning, a
           </Col>
           <Col span={24}>
             <Form.Item label="接口形式" wrapperCol={{ span: 18 }} labelCol={{ span: 4 }} name="apiType" rules={[{ required: true }]}>
-              <Radio.Group disabled>
+              <Radio.Group>
                 <Radio value="JSON">JSON</Radio>
                 <Radio value="XML">XML</Radio>
               </Radio.Group>
