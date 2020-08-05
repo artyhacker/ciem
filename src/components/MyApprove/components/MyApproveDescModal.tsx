@@ -1,12 +1,15 @@
 import React, { FC, useCallback, useMemo, useState, useEffect } from "react";
-import { Modal, Row, Col, Table, Checkbox, Button, Input, message } from "antd";
+import { Modal, Row, Col, Table, Checkbox, Button, Input, message, Divider } from "antd";
 import { CheckOutlined, StopOutlined } from "@ant-design/icons";
+// @ts-ignore
+import XMLViewer from "react-xml-viewer";
 import { DataMapType, DataType } from "../../../models/data";
 import {
   MyApplicationDescType,
   ApplicationStatusType,
 } from "../../../models/dataApplication";
 import { patchApprove } from "../actions";
+import ReactJson from "react-json-view";
 
 interface Props {
   visible: boolean;
@@ -20,6 +23,11 @@ interface Props {
 }
 
 type KeyMap = { [key: string]: boolean };
+
+const XMLViewTheme = {
+  attributeKeyColor: "#FF0000",
+  attributeValueColor: "#000FF",
+};
 
 interface TableDataType extends DataMapType {
   isReq?: boolean;
@@ -134,6 +142,48 @@ const MyApplicationDescModal: FC<Props> = ({
         </Button>
       </div>
     ) : null;
+
+    const getApiDataView = useCallback(() => {
+      if (!item || item.status !== 1) {
+        return null;
+      }
+      if (
+        item &&
+        item.apiType === "JSON" &&
+        item.dataApi &&
+        item.dataApi[0] === "{"
+      ) {
+        return (
+          <>
+            <Divider>API接口预览</Divider>
+            <div style={{ maxHeight: "20rem", overflow: "auto" }}>
+              <ReactJson src={JSON.parse(item.dataApi)} name={false} />
+            </div>
+          </>
+        );
+      }
+      if (
+        item &&
+        item.apiType === "XML" &&
+        item.dataApi &&
+        item.dataApi[0] === "<"
+      ) {
+        return (
+          <>
+            <Divider>API接口预览</Divider>
+            <div style={{ maxHeight: "20rem", overflow: "auto" }}>
+              <XMLViewer
+                xml={item.dataApi}
+                theme={XMLViewTheme}
+                indentSize={4}
+                invalidXml="非法的XML文件"
+              />
+            </div>
+          </>
+        );
+      }
+      return null;
+    }, [item]);
   
   return (
     <Modal
@@ -164,9 +214,10 @@ const MyApplicationDescModal: FC<Props> = ({
         dataSource={dataSource}
         size="small"
         pagination={false}
-        scroll={{ y: 300 }}
+        scroll={{ y: 260 }}
         bordered
       />
+      {getApiDataView()}
     </Modal>
   );
 };
