@@ -1,5 +1,6 @@
 import React, { FC, useCallback, useMemo } from "react";
-import { Modal, Row, Col, Table, Checkbox } from "antd";
+import { Modal, Row, Col, Table, Checkbox, Divider } from "antd";
+import ReactJson from "react-json-view";
 import { DataMapType, DataType } from "../../../models/data";
 import { MyApplicationDescType } from "../../../models/dataApplication";
 
@@ -73,6 +74,20 @@ const MyApplicationDescModal: FC<Props> = ({ visible, item, onClose }) => {
     <span>{`${label}：${value}`}</span>
   );
 
+  const getApiDataView = useCallback(() => {
+    if (item && item.apiType === "JSON" && item.dataApi && item.dataApi[0] === '{') {
+      return (
+        <>
+          <Divider>API接口预览</Divider>
+          <div style={{ maxHeight: '20rem', overflow: 'auto' }}>
+            <ReactJson src={JSON.parse(item.dataApi)} name={false} />
+          </div>
+        </>
+      );
+    }
+    return null;
+  }, [item]);
+
   return (
     <Modal
       visible={visible}
@@ -82,7 +97,7 @@ const MyApplicationDescModal: FC<Props> = ({ visible, item, onClose }) => {
       title="数据申请详情"
       width={800}
     >
-      <Row gutter={[16, 16]} style={{ padding: '0 1rem' }}>
+      <Row gutter={[16, 16]} style={{ padding: "0 1rem" }}>
         <Col span={12}>{getFieldItem("申请名称", getValue("name"))}</Col>
         <Col span={12}>{getFieldItem("申请描述", getValue("describe"))}</Col>
         <Col span={12}>{getFieldItem("申请方", getValue("applicant"))}</Col>
@@ -94,7 +109,12 @@ const MyApplicationDescModal: FC<Props> = ({ visible, item, onClose }) => {
         <Col span={12}>{getFieldItem("协议类型", "HTTP")}</Col>
         <Col span={12}>{getFieldItem("请求方式", "POST")}</Col>
         <Col span={12}>{getFieldItem("接口形式", getValue("apiType"))}</Col>
-        <Col span={12} style={{ display: item && item.status === -1 ? '' : 'none' }}>{getFieldItem("驳回原因", getValue("rejectText"))}</Col>
+        <Col
+          span={12}
+          style={{ display: item && item.status === -1 ? "" : "none" }}
+        >
+          {getFieldItem("驳回原因", getValue("rejectText"))}
+        </Col>
       </Row>
       <Table
         rowKey="id"
@@ -105,6 +125,7 @@ const MyApplicationDescModal: FC<Props> = ({ visible, item, onClose }) => {
         scroll={{ y: 300 }}
         bordered
       />
+      {getApiDataView()}
     </Modal>
   );
 };

@@ -56,4 +56,5 @@ export type MyApplicationDescType = {
   data: DataType;
   requestFields: DataMapType[];
   responseFields: DataMapType[];
+  dataApi?: string;
 }
