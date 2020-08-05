@@ -138,6 +138,10 @@ const MyApplicationContainer: FC = () => {
     actions.fetchEdit(item, cb);
   }, [tabKey]);
 
+  const onDownload = useCallback((item: MyApplicationType) => {
+    actions.fetchDownload(item);
+  }, []);
+
   const c = useMemo(() => (
     <div className={styles.component}>
       <div>
@@ -156,11 +160,11 @@ const MyApplicationContainer: FC = () => {
           onDesc={onDesc}
           spinning={spinning}
           status={Number(tabKey) as ApplicationStatusType}
-          onDownload={(r: MyApplicationType) => console.log(r)}
+          onDownload={onDownload}
         />
       </div>
     </div>
-  ), [showList, onSearch, onReset, spinning, params, onDesc, onDel, onEdit, tabKey]);
+  ), [showList, onSearch, onReset, spinning, params, onDesc, onDel, onEdit, tabKey, onDownload]);
 
   return (
     <div className={styles.container}>
