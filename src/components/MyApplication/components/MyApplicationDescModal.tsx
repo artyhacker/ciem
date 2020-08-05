@@ -20,9 +20,9 @@ interface TableDataType extends DataMapType {
 }
 
 const XMLViewTheme = {
-  "attributeKeyColor": "#FF0000",
-  "attributeValueColor": "#000FF"
-}
+  attributeKeyColor: "#FF0000",
+  attributeValueColor: "#000FF",
+};
 
 const MyApplicationDescModal: FC<Props> = ({ visible, item, onClose }) => {
   const columns = [
@@ -82,22 +82,40 @@ const MyApplicationDescModal: FC<Props> = ({ visible, item, onClose }) => {
   );
 
   const getApiDataView = useCallback(() => {
-    if (item && item.apiType === "JSON" && item.dataApi && item.dataApi[0] === '{') {
+    if (!item || item.status !== 1) {
+      return null;
+    }
+    if (
+      item &&
+      item.apiType === "JSON" &&
+      item.dataApi &&
+      item.dataApi[0] === "{"
+    ) {
       return (
         <>
           <Divider>API接口预览</Divider>
-          <div style={{ maxHeight: '20rem', overflow: 'auto' }}>
+          <div style={{ maxHeight: "20rem", overflow: "auto" }}>
             <ReactJson src={JSON.parse(item.dataApi)} name={false} />
           </div>
         </>
       );
     }
-    if (item && item.apiType === "XML" && item.dataApi && item.dataApi[0] === '<') {
+    if (
+      item &&
+      item.apiType === "XML" &&
+      item.dataApi &&
+      item.dataApi[0] === "<"
+    ) {
       return (
         <>
           <Divider>API接口预览</Divider>
-          <div style={{ maxHeight: '20rem', overflow: 'auto' }}>
-            <XMLViewer xml={item.dataApi} theme={XMLViewTheme} />
+          <div style={{ maxHeight: "20rem", overflow: "auto" }}>
+            <XMLViewer
+              xml={item.dataApi}
+              theme={XMLViewTheme}
+              indentSize={4}
+              invalidXml="非法的XML文件"
+            />
           </div>
         </>
       );
@@ -139,7 +157,7 @@ const MyApplicationDescModal: FC<Props> = ({ visible, item, onClose }) => {
         dataSource={dataSource}
         size="small"
         pagination={false}
-        scroll={{ y: 300 }}
+        scroll={{ y: 280 }}
         bordered
       />
       {getApiDataView()}
