@@ -12,6 +12,7 @@ import {
 } from "../../../models/dataApplication";
 import * as actions from "../actions";
 import MyApplicationDescModal from "./MyApproveDescModal";
+import { fetchDownload } from "../../MyApplication/actions";
 
 const MyApplicationContainer: FC = () => {
   const [list, setList] = useState<MyApplicationType[]>([]);
@@ -114,6 +115,10 @@ const MyApplicationContainer: FC = () => {
     onCloseDesc();
   }, [onCloseDesc]);
 
+  const onDownload = useCallback((r: MyApplicationType) => {
+    fetchDownload(r);
+  }, []);
+
   const c = useMemo(() => (
     <div className={styles.component}>
       <div>
@@ -130,11 +135,11 @@ const MyApplicationContainer: FC = () => {
           onDesc={onDesc}
           spinning={spinning}
           status={Number(tabKey) as ApplicationStatusType}
-          onDownload={(r: MyApplicationType) => console.log(r)}
+          onDownload={onDownload}
         />
       </div>
     </div>
-  ), [showList, onSearch, onReset, spinning, params, onDesc, tabKey]);
+  ), [showList, onSearch, onReset, spinning, params, onDesc, tabKey, onDownload]);
 
   return (
     <div className={styles.container}>

@@ -51,12 +51,12 @@ export const fetchDownload = async (
   cb?: CallbackType
 ) => {
   const res = await axiosInstance
-    .get(`${api.apply}/download/xml-en/${item.id}`, {
+    .get(`${api.apply}/download/${item.id}`, {
       headers: {
         Accept: "application/octet-stream,application/json",
         "Content-Type": "application/json",
       },
-      // responseType: "blob",
+      responseType: "blob",
     })
     .catch((e) => e.response || e);
   if (isOk(res)) {
