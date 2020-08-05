@@ -4,6 +4,7 @@ import DataRegister from '../components/DataRegister';
 import MyData from '../components/MyData';
 import DataApplication from '../components/DataApplication';
 import MyApplication from '../components/MyApplication';
+import MyApprove from '../components/MyApprove';
 
 export type MenuItemType = {
   path: string;
@@ -46,7 +47,7 @@ const menuConfig: MenuItemType[] = [
   {
     path: '/approve',
     label: '我的审批',
-    component: Empty,
+    component: MyApprove,
     auth: 1,
   },
   {

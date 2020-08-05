@@ -40,6 +40,7 @@ export type MyApplicationSearchType = {
   name?: string;
   describe?: string;
   dataUploader?: string;
+  applicant?: string;
 }
 
 export type MyApplicationDescType = {
