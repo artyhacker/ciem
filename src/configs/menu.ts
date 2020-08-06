@@ -1,4 +1,3 @@
-import Empty from '../components/Empty';
 import Dict from '../components/Dict';
 import DataRegister from '../components/DataRegister';
 import MyData from '../components/MyData';
