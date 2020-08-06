@@ -3,7 +3,7 @@ import { UserOutlined } from "@ant-design/icons";
 import styles from "./Header.module.css";
 import { SYSTEM_TITLE } from "../../models/global";
 import { Popconfirm, message } from "antd";
-import axiosInstance, { isOk } from "../../utils/axios";
+import axiosInstance from "../../utils/axios";
 import api from "../../configs/api";
 import { clearToken } from "../../utils/tokenUtils";
 import { History } from "history";
