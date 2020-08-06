@@ -106,12 +106,13 @@ const MyApplicationContainer: FC = () => {
       }
       return pm;
     }));
-    setShowList(prev => prev.map(pm => {
-      if (pm.id === id) {
-        return { ...pm, status, rejectText: rejectText || '' };
-      }
-      return pm;
-    }));
+    // setShowList(prev => prev.map(pm => {
+    //   if (pm.id === id) {
+    //     return { ...pm, status, rejectText: rejectText || '' };
+    //   }
+    //   return pm;
+    // }));
+    setShowList(prev => prev.filter(pf => pf.id !== id));
     onCloseDesc();
   }, [onCloseDesc]);
 
