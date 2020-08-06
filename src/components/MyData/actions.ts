@@ -29,3 +29,17 @@ export const fetchDelMyData = async (item: MyDataType, cb: CallbackType) => {
     cb(res.data);
   }
 };
+
+export const fetchOriginData = async (item: MyDataType, cb: CallbackType) => {
+  const res1 = await axiosInstance
+    .get(`${api.data}/${item.id}`)
+    .catch((e) => e.response || e);
+  if (isOk(res1) && res1.data && res1.data.tableName) {
+    const res = await axiosInstance
+      .get(`${api.register}/${res1.data.tableName}`)
+      .catch((e) => e.response || e);
+    if (isOk(res)) {
+      cb(res.data);
+    }
+  }
+};

@@ -5,14 +5,7 @@ import DataApplication from '../components/DataApplication';
 import MyApplication from '../components/MyApplication';
 import MyApprove from '../components/MyApprove';
 import Efficacy from '../components/Efficacy';
-
-/**
- * 切换菜单时修改此变量
- * user: 普通用户/管理员
- * uploader: 数据上传者页面
- * applicant: 数据申请者页面
- */
-const USER_ROLE: 'user' | 'uploader' | 'applicant' = 'user';
+import PROJECT_TYPE from './projectType';
 
 export type MenuItemType = {
   path: string;
@@ -84,5 +77,10 @@ const menuConfigApplicant: MenuItemType[] = [
   },
 ];
 
-// @ts-ignore
-export default USER_ROLE === 'uploader' ? menuConfigUploader : USER_ROLE === 'applicant' ? menuConfigApplicant : menuConfig;
+const menu = {
+  custom: menuConfig,
+  uploader: menuConfigUploader,
+  applicant: menuConfigApplicant,
+}
+
+export default menu[PROJECT_TYPE];

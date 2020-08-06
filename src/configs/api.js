@@ -23,6 +23,7 @@ const api = {
   dict: '/dicts',
   data: '/data',
   apply: '/apply',
+  register: '/register',
 };
 
 export default api;

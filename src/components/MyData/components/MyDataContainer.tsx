@@ -3,15 +3,18 @@ import styles from "../../styles.module.css";
 import MyDataSearch from "./MyDataSearch";
 import DataTypeTree from "../../DataRegister/components/DataTypeTree";
 import MyDataTable from "./MyDataTable";
-import { fetchMyData, fetchMyDataItem, fetchDelMyData } from "../actions";
+import { fetchMyData, fetchMyDataItem, fetchDelMyData, fetchOriginData } from "../actions";
 import { MyDataType, DataType } from "../../../models/data";
 import MyDataDescModal from "./MyDataDescModal";
 import { message } from "antd";
+import OriginDataModal from "./OriginDataModal";
 
 export type MyDataSearchType = {
   name?: string;
   describe?: string;
 };
+
+export type OriginDataType = { [key: string]: string };
 
 const MyDataContainer: FC = () => {
   const [list, setList] = useState<MyDataType[]>([]);
@@ -23,6 +26,9 @@ const MyDataContainer: FC = () => {
   const [descItem, setDescItem] = useState<DataType>();
 
   const [spinning, setSpinning] = useState(false);
+
+  const [originVisible, setOriginVisible] = useState(false);
+  const [originData, setOriginData] = useState<OriginDataType[]>([]);
 
   useEffect(() => {
     const cb = (value: MyDataType[]) => {
@@ -88,6 +94,25 @@ const MyDataContainer: FC = () => {
     fetchDelMyData(item, cb);
   }, []);
 
+  const getOriginData = useCallback((item: MyDataType) => {
+    setSpinning(true);
+    const cb = (resData: any) => {
+      setSpinning(false);
+      if (resData && resData.length) {
+        setOriginData(resData);
+        setOriginVisible(true);
+      } else {
+        message.info('未找到原始数据');
+      }
+    };
+    fetchOriginData(item, cb);
+  }, []);
+
+  const onCloseOrigin = useCallback(() => {
+    setOriginVisible(false);
+    setOriginData([]);
+  }, []);
+
   return (
     <div className={styles.container}>
       <MyDataSearch
@@ -101,10 +126,11 @@ const MyDataContainer: FC = () => {
           <DataTypeTree selectedKey={type} onSelect={onSelectType} />
         </div>
         <div className={styles.right}>
-          <MyDataTable dataSource={dataSource} onDesc={onDesc} onDel={onDel} spinning={spinning} />
+          <MyDataTable dataSource={dataSource} onDesc={onDesc} onDel={onDel} spinning={spinning} getOriginData={getOriginData} />
         </div>
       </div>
       <MyDataDescModal visible={descVisible} item={descItem} onClose={onCloseDesc} />
+      <OriginDataModal visible={originVisible} data={originData} onClose={onCloseOrigin} />
     </div>
   );
 };

@@ -7,52 +7,89 @@ import {
 } from "@ant-design/icons";
 import { MyDataType } from "../../../models/data";
 import history from "../../../utils/history";
+import PROJECT_TYPE from "../../../configs/projectType";
 
 interface Props {
   dataSource: MyDataType[];
   onDesc: (item: MyDataType) => void;
   onDel: (item: MyDataType) => void;
+  getOriginData: (item: MyDataType) => void;
   spinning: boolean;
 }
 
-const MyDataTable: FC<Props> = ({ dataSource, onDesc, onDel, spinning }) => {
+// @ts-ignore
+const IS_UPLOADER = PROJECT_TYPE === 'uploader';
+
+const MyDataTable: FC<Props> = ({
+  dataSource,
+  onDesc,
+  onDel,
+  spinning,
+  getOriginData,
+}) => {
   const columns = useMemo(
-    () => [
-      { title: "数据名称", dataIndex: "name", width: "35%" },
-      { title: "数据描述", dataIndex: "describe", width: "35%" },
-      {
-        title: "操作",
-        dataIndex: "OPERATIONS",
-        render: (t: any, r: MyDataType) => (
-          <>
-            <Button
-              size="small"
-              style={{ color: "#1890FF" }}
-              title="详情"
-              onClick={() => onDesc(r)}
-            >
-              详情 <EllipsisOutlined />
-            </Button>
-            <Button
-              size="small"
-              style={{ color: "#1890FF", margin: "0 .5rem" }}
-              title="编辑"
-              onClick={() => {
-                history.push(`/register?id=${r.id}`);
-              }}
-            >
-              编辑 <EditOutlined />
-            </Button>
-            <Popconfirm title="确认删除？" onConfirm={() => onDel(r)}>
-              <Button size="small" style={{ color: "#1890FF" }} title="删除">
-                删除 <DeleteOutlined />
-              </Button>
-            </Popconfirm>
-          </>
-        ),
-      },
-    ],
-    [onDesc, onDel]
+    () =>
+    IS_UPLOADER
+        ? [
+            { title: "数据名称", dataIndex: "name", width: "35%" },
+            { title: "数据描述", dataIndex: "describe", width: "35%" },
+            {
+              title: "操作",
+              dataIndex: "OPERATIONS",
+              render: (t: any, r: MyDataType) => (
+                <>
+                  <Button
+                    size="small"
+                    style={{ color: "#1890FF" }}
+                    title="详情"
+                    onClick={() => getOriginData(r)}
+                  >
+                    详情 <EllipsisOutlined />
+                  </Button>
+                </>
+              ),
+            },
+          ]
+        : [
+            { title: "数据名称", dataIndex: "name", width: "35%" },
+            { title: "数据描述", dataIndex: "describe", width: "35%" },
+            {
+              title: "操作",
+              dataIndex: "OPERATIONS",
+              render: (t: any, r: MyDataType) => (
+                <>
+                  <Button
+                    size="small"
+                    style={{ color: "#1890FF" }}
+                    title="详情"
+                    onClick={() => onDesc(r)}
+                  >
+                    详情 <EllipsisOutlined />
+                  </Button>
+                  <Button
+                    size="small"
+                    style={{ color: "#1890FF", margin: "0 .5rem" }}
+                    title="编辑"
+                    onClick={() => {
+                      history.push(`/register?id=${r.id}`);
+                    }}
+                  >
+                    编辑 <EditOutlined />
+                  </Button>
+                  <Popconfirm title="确认删除？" onConfirm={() => onDel(r)}>
+                    <Button
+                      size="small"
+                      style={{ color: "#1890FF" }}
+                      title="删除"
+                    >
+                      删除 <DeleteOutlined />
+                    </Button>
+                  </Popconfirm>
+                </>
+              ),
+            },
+          ],
+    [onDesc, onDel, getOriginData]
   );
 
   return (
