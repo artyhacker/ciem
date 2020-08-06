@@ -6,6 +6,14 @@ import MyApplication from '../components/MyApplication';
 import MyApprove from '../components/MyApprove';
 import Efficacy from '../components/Efficacy';
 
+/**
+ * 切换菜单时修改此变量
+ * user: 普通用户/管理员
+ * uploader: 数据上传者页面
+ * applicant: 数据申请者页面
+ */
+const USER_ROLE: 'user' | 'uploader' | 'applicant' = 'user';
+
 export type MenuItemType = {
   path: string;
   label: string;
@@ -58,4 +66,23 @@ const menuConfig: MenuItemType[] = [
   },
 ];
 
-export default menuConfig;
+const menuConfigUploader: MenuItemType[] = [
+  {
+    path: '/my-data',
+    label: '我的数据',
+    component: MyData,
+    auth: 0,
+  },
+];
+
+const menuConfigApplicant: MenuItemType[] = [
+  {
+    path: '/my-apply',
+    label: '我的申请',
+    component: MyApplication,
+    auth: 0,
+  },
+];
+
+// @ts-ignore
+export default USER_ROLE === 'uploader' ? menuConfigUploader : USER_ROLE === 'applicant' ? menuConfigApplicant : menuConfig;
