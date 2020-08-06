@@ -16,16 +16,12 @@ interface Props {
 
 const Header: FC<Props> = ({ history }) => {
   const fetchLogout = async () => {
-    const res = await axiosInstance.get(`${api.login}/${getUserInfo().id}`);
-    if (isOk(res)) {
-      history.push("/login");
-      clearToken();
-      clearPreLocation();
-      message.success("您已安全退出！");
-      clearToken();
-    } else {
-      message.error("操作失败");
-    }
+    await axiosInstance.get(`${api.login}/${getUserInfo().id}`).catch(e => console.error(e));
+    history.push("/login");
+    clearToken();
+    clearPreLocation();
+    message.success("您已安全退出！");
+    clearToken();
   };
 
   const { name } = getUserInfo();
