@@ -1,6 +1,5 @@
-import React, { FC, useState, useEffect } from "react";
+import React, { FC } from "react";
 import { UserOutlined } from "@ant-design/icons";
-import moment from "moment";
 import styles from "./Header.module.css";
 import { SYSTEM_TITLE } from "../../models/global";
 import { Popconfirm, message } from "antd";
@@ -16,15 +15,6 @@ interface Props {
 }
 
 const Header: FC<Props> = ({ history }) => {
-  const [time, setTime] = useState(moment().format("YYYY.MM.DD HH:mm"));
-
-  useEffect(() => {
-    const i = setInterval(() => {
-      setTime(moment().format("YYYY.MM.DD HH:mm"));
-    }, 2000);
-    return () => clearInterval(i);
-  }, []);
-
   const fetchLogout = async () => {
     const res = await axiosInstance.get(`${api.login}/${getUserInfo().id}`);
     if (isOk(res)) {
@@ -45,8 +35,6 @@ const Header: FC<Props> = ({ history }) => {
       <div className={styles.icon} />
       <div className={styles.title}>{SYSTEM_TITLE}</div>
       <div className={styles.time}>
-        <span className={styles["logo-time"]} />
-        <div style={{ fontSize: "16px", margin: "0 1rem" }}>{time}</div>
         <div style={{ fontSize: "16px", marginRight: "2rem" }}>
           <UserOutlined style={{ fontSize: "1.3rem", marginRight: ".5rem" }} />
           {name}
