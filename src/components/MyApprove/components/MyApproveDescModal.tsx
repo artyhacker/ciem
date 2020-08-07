@@ -184,7 +184,7 @@ const MyApplicationDescModal: FC<Props> = ({
       }
       if (
         item &&
-        item.apiType === "YAML" &&
+        item.apiType === "YML" &&
         item.dataApi
       ) {
         return (
