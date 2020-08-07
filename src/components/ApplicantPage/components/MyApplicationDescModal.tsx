@@ -71,6 +71,12 @@ const MyApplicationDescModal: FC<Props> = ({ visible, item, onClose }) => {
     }
   }, [item, visible]);
 
+  useEffect(() => {
+    if (!visible) {
+      setResponseData(undefined);
+    }
+  }, [visible]);
+
   const onCancel = () => {
     onClose();
   };
