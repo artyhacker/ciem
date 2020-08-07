@@ -69,8 +69,8 @@ const DataApplyModal: FC<Props> = ({ visible, item, onClose, onSave, spinning, a
   const onOk = () => {
     form.validateFields()
       .then((values) => {
-        const requestFields = Object.keys(reqMap).filter(k => reqMap[k]).map(k => dataSource.find(df => df.id === k));
-        const responseFields = Object.keys(resMap).filter(k => resMap[k]).map(k => dataSource.find(df => df.id === k));
+        const requestFields = Object.keys(reqMap).filter(k => reqMap[k] && dataSource.find(df => df.id === k)).map(k => dataSource.find(df => df.id === k));
+        const responseFields = Object.keys(resMap).filter(k => resMap[k] && dataSource.find(df => df.id === k)).map(k => dataSource.find(df => df.id === k));
         if (!requestFields.length) {
           message.info('未选择请求包');
           return;
