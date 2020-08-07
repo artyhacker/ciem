@@ -1,3 +1,20 @@
+### [0.4.0](https://github.com/artyhacker/ciem/compare/v0.3.0...v0.4.1) (2020-08-07)
+
+
+### Features
+
+* 添加对YAML格式API的支持 ([2c16799](https://github.com/artyhacker/ciem/commit/2c167994bd13678f4e68c6640f64eb8cbb725f32))
+* **我的申请:** 完成增删改查；“已开通”可预览、下载API文档
+* **我的审批:** 完成增删改查；“已开通”可预览、下载API文档
+* **效能评估:** 完成统计图
+* **提供者页面:** 登陆后为“我的数据”，可查看原始数据
+
+### Bug Fixes
+
+* 已处理完JIRA中的前端bug
+
+---
+
 ## 0.3.0 (2020-08-03)
 
 ### Features
