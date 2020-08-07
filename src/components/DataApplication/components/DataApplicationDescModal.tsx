@@ -1,6 +1,6 @@
 import React, { FC, useCallback, useMemo } from "react";
 import { DataType } from "../../../models/data";
-import { Modal, Row, Col, Form, Input, Table } from "antd";
+import { Modal, Row, Col, Table } from "antd";
 
 interface Props {
   visible: boolean;
