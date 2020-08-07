@@ -66,7 +66,7 @@ export const fetchDownload = async (
     const url = window.URL.createObjectURL(new Blob([res.data as BlobPart]));
     const a = document.createElement('a');
     a.href = url;
-    const h: string = res.headers['content-disposition'];
+    const h: string = res.headers['content-disposition'] || res.headers['Content-Disposition'] || '';
     let filename = '下载文件';
     const startIndex = h.indexOf(`filename*=UTF-8''`);
     if (startIndex > -1) {
