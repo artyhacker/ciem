@@ -21,9 +21,9 @@ const DataRegisterContainer: FC = () => {
       const { name } = getUserInfo();
       const postData: DataType = Object.assign(data, { type, uploader: name });
       if (isEdit) {
-        fetchPut(postData, cb);
+        fetchPut(postData, cb, errCb);
       } else {
-        fetchRegister(postData, cb);
+        fetchRegister(postData, cb, errCb);
       }
     },
     [type]

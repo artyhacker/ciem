@@ -27,7 +27,7 @@ export const validateForm = (item: DataType, isEdit?: boolean): boolean => {
   });
 };
 
-export const fetchRegister = async (data: DataType, cb: CallbackType) => {
+export const fetchRegister = async (data: DataType, cb: CallbackType, errCb: () => void) => {
   const res = await axiosInstance.post(api.data, data).catch((e) => {
     console.log(e);
     return e.response;
@@ -38,10 +38,11 @@ export const fetchRegister = async (data: DataType, cb: CallbackType) => {
     }
   } else {
     message.error("注册失败");
+    errCb();
   }
 };
 
-export const fetchPut = async (data: DataType, cb: CallbackType) => {
+export const fetchPut = async (data: DataType, cb: CallbackType, errCb: () => void) => {
   const res = await axiosInstance.put(`${api.data}/${data.id}`, data).catch((e) => {
     console.log(e);
     return e.response;
@@ -52,10 +53,11 @@ export const fetchPut = async (data: DataType, cb: CallbackType) => {
     }
   } else {
     message.error("编辑失败");
+    errCb()
   }
 };
 
-export const fetchDataItem = async (id: string, cb: CallbackType) => {
+export const fetchDataItem = async (id: string, cb: CallbackType, errCb: () => void) => {
   const res = await axiosInstance
     .get(`${api.data}/${id}`)
     .catch((e) => e.response || e);
@@ -63,5 +65,6 @@ export const fetchDataItem = async (id: string, cb: CallbackType) => {
     cb(res.data);
   } else {
     message.error("获取数据详情失败");
+    errCb();
   }
 };

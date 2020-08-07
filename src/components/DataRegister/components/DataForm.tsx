@@ -68,7 +68,7 @@ const DataForm: FC<Props> = ({ onRegister, location, setType, history }) => {
         setDataMap(getDataMap(data.dataMap));
         setType(data.type);
         setSpinning(false);
-      });
+      }, () => setSpinning(false));
     }
   }, [location, setType]);
 
