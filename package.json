@@ -61,5 +61,5 @@
       "commit-msg": "commitlint -x @commitlint/config-conventional -E HUSKY_GIT_PARAMS"
     }
   },
-  "proxy": "http://127.0.0.1:5000/mock/23"
+  "proxy": "http://127.0.0.1:5000/mock/14"
 }
