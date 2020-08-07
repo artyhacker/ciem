@@ -1,6 +1,6 @@
 import React, { FC, useState, useEffect } from "react";
 import DictUploader from './DictUploader';
-import styles from "../styles.module.css";
+import styles from "./styles.module.css";
 import DictTable from "./DictTable";
 import { Divider } from "antd";
 import { DictType } from "../../models/dict";
