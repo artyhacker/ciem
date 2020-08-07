@@ -5,6 +5,7 @@ import DataApplication from '../components/DataApplication';
 import MyApplication from '../components/MyApplication';
 import MyApprove from '../components/MyApprove';
 import Efficacy from '../components/Efficacy';
+import ApplicantPage from '../components/ApplicantPage';
 import PROJECT_TYPE from './projectType';
 
 export type MenuItemType = {
@@ -55,6 +56,12 @@ const menuConfig: MenuItemType[] = [
     path: '/assess',
     label: '效能评估',
     component: Efficacy,
+    auth: 1,
+  },
+  {
+    path: '/applicant',
+    label: 'API测试',
+    component: ApplicantPage,
     auth: 1,
   },
 ];

@@ -24,6 +24,7 @@ const api = {
   data: '/data',
   apply: '/apply',
   register: '/register',
+  requester: '/requester',
 };
 
 export default api;
