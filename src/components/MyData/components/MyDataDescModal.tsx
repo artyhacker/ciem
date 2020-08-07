@@ -9,8 +9,8 @@ interface Props {
 }
 
 const columns = [
-  { title: "CIEM数据元字典标识符", dataIndex: "id" },
-  { title: "CIEM数据元字典中文名称", dataIndex: "name" },
+  { title: "CIEM数据元字典标识符", dataIndex: "dictId" },
+  { title: "CIEM数据元字典中文名称", dataIndex: "dictName" },
 ];
 
 const MyDataDescModal: FC<Props> = ({ visible, item, onClose }) => {
