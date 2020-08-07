@@ -24,7 +24,13 @@ const MyDataDescModal: FC<Props> = ({ visible, item, onClose }) => {
     [item]
   );
 
-  const dataSource = useMemo(() => (item && item.dataMap ? item.dataMap : []), [item]);
+  const dataSource = useMemo(() => (item && item.dataMap ? item.dataMap : []), [
+    item,
+  ]);
+
+  const getFieldItem = (label: string, value: any) => (
+    <span>{`${label}：${value}`}</span>
+  );
 
   return (
     <Modal
@@ -35,38 +41,21 @@ const MyDataDescModal: FC<Props> = ({ visible, item, onClose }) => {
       title="数据详情"
       width={600}
     >
-      <Form wrapperCol={{ span: 14 }} labelCol={{ span: 8 }}>
-        <Row>
-          <Col span={12}>
-            <Form.Item label="服务器IP">
-              <Input value={getValue("ip")} readOnly />
-            </Form.Item>
-          </Col>
-          <Col span={12}>
-            <Form.Item label="服务器端口">
-              <Input value={getValue("port")} readOnly />
-            </Form.Item>
-          </Col>
-          <Col span={12}>
-            <Form.Item label="协议类型">
-              <Input value={getValue("protocol")} readOnly />
-            </Form.Item>
-          </Col>
-          <Col span={12}>
-            <Form.Item label="请求方式">
-              <Input value={getValue("method")} readOnly />
-            </Form.Item>
-          </Col>
-        </Row>
-        <Table
-          rowKey="id"
-          columns={columns}
-          dataSource={dataSource}
-          size="small"
-          pagination={false}
-          scroll={{ y: 400 }}
-        />
-      </Form>
+      <Row gutter={[16, 16]} style={{ padding: "0 1rem" }}>
+        <Col span={24}>{getFieldItem("数据提供方", getValue("uploader"))}</Col>
+        <Col span={12}>{getFieldItem("服务器IP", getValue("ip"))}</Col>
+        <Col span={12}>{getFieldItem("服务器端口", getValue("port"))}</Col>
+        <Col span={12}>{getFieldItem("协议类型", getValue("protocol"))}</Col>
+        <Col span={12}>{getFieldItem("请求方式", getValue("method"))}</Col>
+      </Row>
+      <Table
+        rowKey="id"
+        columns={columns}
+        dataSource={dataSource}
+        size="small"
+        pagination={false}
+        scroll={{ y: 400 }}
+      />
     </Modal>
   );
 };
