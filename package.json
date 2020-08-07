@@ -1,6 +1,6 @@
 {
   "name": "ciem",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "private": true,
   "dependencies": {
     "@ant-design/charts": "^0.9.10",
