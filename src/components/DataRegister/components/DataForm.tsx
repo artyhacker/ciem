@@ -92,12 +92,15 @@ const DataForm: FC<Props> = ({ onRegister, location, setType, history }) => {
           onReset();
           message.success(isEdit ? "编辑成功" : "注册成功");
           setSpinning(false);
+          if (isEdit) {
+            history.push("/my-data");
+          }
         },
         isEdit,
         () => setSpinning(false)
       );
     }
-  }, [item, dataMap, onRegister, onReset, isEdit]);
+  }, [item, dataMap, onRegister, onReset, isEdit, history]);
 
   const beforeUpload = (file: RcFile) => {
     const index = file.name.lastIndexOf(".");
