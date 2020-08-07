@@ -191,7 +191,7 @@ const MyApplicationDescModal: FC<Props> = ({
           <>
             <Divider>API接口预览</Divider>
             <div style={{ maxHeight: "20rem", overflow: "auto" }}>
-              {item.dataApi?.split('\\n').map(s => (<p>{s}</p>))}
+              {item.dataApi?.split('\n').map(s => (<p>{s}</p>))}
             </div>
           </>
         );
