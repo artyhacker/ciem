@@ -131,6 +131,7 @@ const DataApplyModal: FC<Props> = ({ visible, item, onClose, onSave, spinning, a
               <Radio.Group>
                 <Radio value="JSON">JSON</Radio>
                 <Radio value="XML">XML</Radio>
+                <Radio value="YAML">YAML</Radio>
               </Radio.Group>
             </Form.Item>
           </Col>
