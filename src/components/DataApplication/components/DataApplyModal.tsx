@@ -24,15 +24,9 @@ const DataApplyModal: FC<Props> = ({ visible, item, onClose, onSave, spinning, a
   const [resMap, setResMap] = useState<KeyMap>({});
 
   useEffect(() => {
-    if (visible) {
-      form.setFieldsValue({ apiType: 'JSON' });
-    }
-  }, [form, visible]);
-
-  useEffect(() => {
     if (form && applyItem && visible) {
       form.setFieldsValue({
-        apiType: 'JSON',
+        apiType: applyItem.apiType,
         name: applyItem.name,
         describe: applyItem.describe,
         ip: applyItem.ip,
@@ -45,6 +39,8 @@ const DataApplyModal: FC<Props> = ({ visible, item, onClose, onSave, spinning, a
       applyItem.responseFields.forEach(res => (newResMap[res.id] = true));
       setReqMap(newReqMap);
       setResMap(newResMap);
+    } else if (form && visible) {
+      form.setFieldsValue({ apiType: 'JSON' });
     }
   }, [applyItem, visible, form]);
 
