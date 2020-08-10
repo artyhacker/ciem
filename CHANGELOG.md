@@ -1,3 +1,24 @@
+### [0.5.0](https://github.com/artyhacker/ciem/compare/v0.4.0...v0.5.0) (2020-08-10)
+
+
+### Features
+
+* 完成数据申请者页面
+* 我的审批
+* 效能评估
+
+
+### Bug Fixes
+
+* **我的审批:** 已开通表格添加提供方展示 ([161474d](https://github.com/artyhacker/ciem/commit/161474d1e4458582d47f22367424feea2b11ac6f))* **我的数据:** 添加可编辑状态 ([7342067](https://github.com/artyhacker/ciem/commit/7342067e59201207ec91287ed96a723fdf50b7e2))
+* **我的申请:** 查看表单的申请方IP/PORT改为数据所在服务器IP/PORT ([0c30f19](https://github.com/artyhacker/ciem/commit/0c30f19a02a6497ac097956d55cdb7bbbb7f57c4))
+* api测试页关闭表单时清空返回数据 ([c0abadb](https://github.com/artyhacker/ciem/commit/c0abadba1f66384ad5de8f7f38a86e5c2c2491d0))       
+* 修复下载API时获取请求头错误 ([32c7c09](https://github.com/artyhacker/ciem/commit/32c7c09a8148c69ac75ce186d366b85f3a320bb7))
+* 修复数据变更后，编辑我的申请引起的null值问题 ([13f83e0](https://github.com/artyhacker/ciem/commit/13f83e05f9150759bc345ec2e6be8d70cb76579a))
+* 修复数据申请编辑表单“接口形式”默认选中项错误 ([d13faa2](https://github.com/artyhacker/ciem/commit/d13faa2e29a83effd035798c1d0903fbfbf748b5))
+
+---
+
 ### [0.4.0](https://github.com/artyhacker/ciem/compare/v0.3.0...v0.4.1) (2020-08-07)
 
 
