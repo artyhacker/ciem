@@ -215,8 +215,8 @@ const MyApplicationDescModal: FC<Props> = ({
         <Col span={12}>
           {getFieldItem("提供方", getValue("data", "uploader"))}
         </Col>
-        <Col span={12}>{getFieldItem("申请服务器IP", getValue("ip"))}</Col>
-        <Col span={12}>{getFieldItem("申请服务器端口", getValue("port"))}</Col>
+        <Col span={12}>{getFieldItem("数据库表所在服务器IP", getValue("data", "ip"))}</Col>
+        <Col span={12}>{getFieldItem("数据库表所在服务器端口", getValue("data", "port"))}</Col>
         <Col span={12}>{getFieldItem("协议类型", "HTTP")}</Col>
         <Col span={12}>{getFieldItem("请求方式", "POST")}</Col>
         <Col span={12}>{getFieldItem("接口形式", getValue("apiType"))}</Col>
