@@ -79,7 +79,7 @@ const menuConfigApplicant: MenuItemType[] = [
   {
     path: '/my-apply',
     label: '我的申请',
-    component: MyApplication,
+    component: ApplicantPage,
     auth: 0,
   },
 ];
