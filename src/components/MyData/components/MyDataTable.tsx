@@ -68,11 +68,12 @@ const MyDataTable: FC<Props> = ({
                   </Button>
                   <Button
                     size="small"
-                    style={{ color: "#1890FF", margin: "0 .5rem" }}
-                    title="编辑"
+                    style={{ color: r.isEdit ? "#1890FF" : "rgba(0,0,0,0.3)", margin: "0 .5rem" }}
+                    title={r.isEdit ? '编辑' : '该条数据存在未审批的申请，暂时不可更改'}
                     onClick={() => {
                       history.push(`/register?id=${r.id}`);
                     }}
+                    disabled={!r.isEdit}
                   >
                     编辑 <EditOutlined />
                   </Button>

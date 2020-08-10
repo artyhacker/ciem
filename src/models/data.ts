@@ -41,4 +41,5 @@ export type MyDataType = {
   name: string;
   describe: string;
   type: string;
+  isEdit: 0 | 1;
 };
