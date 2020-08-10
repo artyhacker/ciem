@@ -78,11 +78,12 @@ const MyApproveTable: FC<Props> = ({
 
   const columnsApprove = useMemo(
     () => [
-      { title: "申请名称", dataIndex: "name", width: "18%" },
-      { title: "申请描述", dataIndex: "describe", width: "18%" },
-      { title: "申请方", dataIndex: "applicant", width: "12%" },
-      { title: "数据名称", dataIndex: "dataName", width: "18%" },
-      { title: "数据描述", dataIndex: "dataDescribe", width: "18%" },
+      { title: "申请名称", dataIndex: "name", width: "16%" },
+      { title: "申请描述", dataIndex: "describe", width: "16%" },
+      { title: "申请方", dataIndex: "applicant", width: "10%" },
+      { title: "提供方", dataIndex: "dataUploader", width: "10%" },
+      { title: "数据名称", dataIndex: "dataName", width: "16%" },
+      { title: "数据描述", dataIndex: "dataDescribe", width: "16%" },
       {
         title: "操作",
         dataIndex: "OPERATIONS",
