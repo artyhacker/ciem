@@ -1,4 +1,4 @@
-import React, { FC, useMemo } from "react";
+import React, { FC, useMemo, useState, useEffect } from "react";
 import { Table, Button } from "antd";
 import { EllipsisOutlined, DownloadOutlined } from "@ant-design/icons";
 import {
@@ -21,6 +21,12 @@ const MyApproveTable: FC<Props> = ({
   spinning,
   status,
 }) => {
+  const [current, setCurrent] = useState(1);
+
+  useEffect(() => {
+    setCurrent(1);
+  }, [dataSource]);
+
   const columns0 = useMemo(
     () => [
       { title: "申请名称", dataIndex: "name", width: "18%" },
@@ -123,7 +129,16 @@ const MyApproveTable: FC<Props> = ({
       columns={columns}
       dataSource={dataSource}
       rowKey="id"
-      pagination={false}
+      pagination={{
+        current,
+        showQuickJumper: true,
+        showSizeChanger: true,
+        showTotal: total => `共 ${total} 条`,
+        size: 'small',
+        total: dataSource.length,
+        onChange: page => setCurrent(page),
+        defaultPageSize: 20,
+      }}
       size="small"
       loading={spinning}
     />
