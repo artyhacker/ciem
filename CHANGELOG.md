@@ -1,3 +1,30 @@
+### [0.5.1](https://github.com/artyhacker/ciem/compare/v0.4.0...v0.5.1) (2020-08-11)
+
+
+### Features
+
+* 完成API接口测试页面 ([3d46b4f](https://github.com/artyhacker/ciem/commit/3d46b4fce348436afc7e0e609def9eadbd678f8f))
+
+
+### Bug Fixes
+
+* **api测试:** 添加分页功能 ([7decb2f](https://github.com/artyhacker/ciem/commit/7decb2f578c2238ff9f33be8374aff65bd183cd2))
+* **字典导入:** excel数据有误时抛出错误 ([483ae6b](https://github.com/artyhacker/ciem/commit/483ae6b5123b3aba04f1b94f23e8fca82b21fcb0)) 
+* **我的审批:** 已开通表格添加提供方展示 ([161474d](https://github.com/artyhacker/ciem/commit/161474d1e4458582d47f22367424feea2b11ac6f))* **我的审批:** 添加分页功能 ([416c661](https://github.com/artyhacker/ciem/commit/416c66146aed5cb46ab9937e0491c13cbb331aa5))
+* **我的数据:** 添加分页功能 ([f5f5e4c](https://github.com/artyhacker/ciem/commit/f5f5e4c41336943a19bc40847a876ece83691f50))
+* **我的数据:** 添加可编辑状态 ([7342067](https://github.com/artyhacker/ciem/commit/7342067e59201207ec91287ed96a723fdf50b7e2))
+* **我的申请:** 列表api变更 '/apply' -> '/apply/user' ([5dc495a](https://github.com/artyhacker/ciem/commit/5dc495acddb39ea7aaabfb1713528f2a2e914c8a))
+* **我的申请:** 查看表单的申请方IP/PORT改为数据所在服务器IP/PORT ([0c30f19](https://github.com/artyhacker/ciem/commit/0c30f19a02a6497ac097956d55cdb7bbbb7f57c4))
+* **我的申请:** 添加分页功能 ([8044850](https://github.com/artyhacker/ciem/commit/8044850bdc753fba504f8c01a27ceb8e6733b52f))
+* **数据申请:** 添加分页功能 ([f9e0c35](https://github.com/artyhacker/ciem/commit/f9e0c354c3e21036aed5b57b12fe8667ecb6e949))
+* api测试页关闭表单时清空返回数据 ([c0abadb](https://github.com/artyhacker/ciem/commit/c0abadba1f66384ad5de8f7f38a86e5c2c2491d0))       
+* 修复api测试页表单关闭未清空的问题 ([7869197](https://github.com/artyhacker/ciem/commit/78691971c8175bed16ebf2e3508d11ba6557fdd3))     
+* 修复下载API时获取请求头错误 ([32c7c09](https://github.com/artyhacker/ciem/commit/32c7c09a8148c69ac75ce186d366b85f3a320bb7))
+* 修复数据变更后，编辑我的申请引起的null值问题 ([13f83e0](https://github.com/artyhacker/ciem/commit/13f83e05f9150759bc345ec2e6be8d70cb76579a))
+* 修复数据申请编辑表单“接口形式”默认选中项错误 ([d13faa2](https://github.com/artyhacker/ciem/commit/d13faa2e29a83effd035798c1d0903fbfbf748b5))
+
+---
+
 ### [0.5.0](https://github.com/artyhacker/ciem/compare/v0.4.0...v0.5.0) (2020-08-10)
 
 
