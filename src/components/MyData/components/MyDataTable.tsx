@@ -1,4 +1,4 @@
-import React, { FC, useMemo } from "react";
+import React, { FC, useMemo, useState, useEffect } from "react";
 import { Table, Button, Popconfirm } from "antd";
 import {
   EllipsisOutlined,
@@ -27,6 +27,12 @@ const MyDataTable: FC<Props> = ({
   spinning,
   getOriginData,
 }) => {
+  const [current, setCurrent] = useState(1);
+
+  useEffect(() => {
+    setCurrent(1);
+  }, [dataSource]);
+
   const columns = useMemo(
     () =>
     IS_UPLOADER
@@ -98,7 +104,16 @@ const MyDataTable: FC<Props> = ({
       columns={columns}
       dataSource={dataSource}
       rowKey="id"
-      pagination={false}
+      pagination={{
+        current,
+        showQuickJumper: true,
+        showSizeChanger: true,
+        showTotal: total => `共 ${total} 条`,
+        size: 'small',
+        total: dataSource.length,
+        onChange: page => setCurrent(page),
+        defaultPageSize: 20,
+      }}
       size="small"
       loading={spinning}
     />
