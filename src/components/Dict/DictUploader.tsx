@@ -22,9 +22,13 @@ const fileNameStyle = {
 const parseXData = (data: { [key: string]: { v: string } }): DictType[] => {
   let index = 1;
   const result: DictType[] = [];
-  while (data[`A${index}`]) {
-    result.push({ name: data[`A${index}`].v, id: data[`B${index}`].v });
-    index += 1;
+  try {
+    while (data[`A${index}`]) {
+      result.push({ name: data[`A${index}`].v, id: data[`B${index}`].v });
+      index += 1;
+    }
+  } catch (e) {
+    return [];
   }
   return result;
 };
@@ -55,8 +59,13 @@ const DictUploader: FC<Props> = ({ setLoading, fetchUpload }) => {
       fr.onload = () => {
         const readResult = XLSX.read(fr.result, { type: "binary" });
         const xData = readResult.Sheets[readResult.SheetNames[0]];
-        setData(parseXData(xData));
-        setPreVisible(true);
+        const showData = parseXData(xData);
+        if (showData.length) {
+          setData(showData);
+          setPreVisible(true);
+        } else {
+          message.info('导入数据有误或为空，请检查Excel文件');
+        }
         setLoading(false);
       };
       fr.onerror = () => {
