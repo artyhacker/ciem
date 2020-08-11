@@ -1,4 +1,4 @@
-import React, { FC, useMemo } from "react";
+import React, { FC, useMemo, useState, useEffect } from "react";
 import { Table, Button } from "antd";
 import {
   EllipsisOutlined,
@@ -14,6 +14,12 @@ interface Props {
 }
 
 const DataApplicationTable: FC<Props> = ({ dataSource, onDesc, onApply, spinning }) => {
+  const [current, setCurrent] = useState(1);
+
+  useEffect(() => {
+    setCurrent(1);
+  }, [dataSource]);
+
   const columns = useMemo(
     () => [
       { title: "数据名称", dataIndex: "name", width: "35%" },
@@ -46,7 +52,16 @@ const DataApplicationTable: FC<Props> = ({ dataSource, onDesc, onApply, spinning
       columns={columns}
       dataSource={dataSource}
       rowKey="id"
-      pagination={false}
+      pagination={{
+        current,
+        showQuickJumper: true,
+        showSizeChanger: true,
+        showTotal: total => `共 ${total} 条`,
+        size: 'small',
+        total: dataSource.length,
+        onChange: page => setCurrent(page),
+        defaultPageSize: 20,
+      }}
       size="small"
       loading={spinning}
     />
