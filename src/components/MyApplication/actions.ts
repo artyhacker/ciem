@@ -9,7 +9,7 @@ import { message } from "antd";
 
 export const fetchList = async (cb: CallbackType) => {
   const res = await axiosInstance
-    .get(`${api.apply}`)
+    .get(`${api.apply}/user`)
     .catch((e) => e.response || e);
   if (isOk(res)) {
     cb(res.data);
