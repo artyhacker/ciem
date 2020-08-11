@@ -69,6 +69,10 @@ const MyApplicationDescModal: FC<Props> = ({ visible, item, onClose }) => {
         })),
       });
     }
+    if (!visible) {
+      setParams({});
+      setResponseData([]);
+    }
   }, [item, visible]);
 
   useEffect(() => {
