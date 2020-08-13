@@ -58,12 +58,12 @@ const menuConfig: MenuItemType[] = [
     component: Efficacy,
     auth: 1,
   },
-  {
-    path: '/applicant',
-    label: 'API测试',
-    component: ApplicantPage,
-    auth: 1,
-  },
+  // {
+  //   path: '/applicant',
+  //   label: 'API测试',
+  //   component: ApplicantPage,
+  //   auth: 1,
+  // },
 ];
 
 const menuConfigUploader: MenuItemType[] = [
